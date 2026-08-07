@@ -312,14 +312,18 @@
             <span data-ru style="display:none">Администраторы подключаются только когда нужно живое решение — обычные вопросы, запись на пробное и оформление места бот ведёт от начала до конца.</span>
           </div>
           <p class="case-desc">
-            <span data-en>A Russian-language Telegram bot answers parent questions across two campuses — Da Nang and Nha Trang — covering a wide range of topics through a knowledge base and a GPT-4o classifier. It runs three flows: trial lessons, paid enrollment with a deposit, and free school visits. If a request goes quiet, the bot reminds the admin and director automatically, and hands the client a direct contact if there's still no answer — so nobody is left waiting. It also reminds clients ahead of their visit and checks in with admins the day after each trial.</span>
-            <span data-ru style="display:none">Русскоязычный Telegram-бот отвечает родителям на двух филиалах — в Дананге и Нячанге — по широкому кругу вопросов, опираясь на базу знаний и GPT-4o классификатор. Работает три флоу записи: пробное занятие, платное оформление места с депозитом и бесплатное ознакомление со школой. Если заявка зависает, бот сам напоминает администратору и директору, а если ответа всё равно нет — передаёт клиенту прямой контакт, чтобы никто не остался без ответа. Отдельно бот напоминает о визите за день и уточняет у администратора результат пробного занятия на следующий день.</span>
+            <span data-en>A Russian-language Telegram bot answers parent questions across two campuses — Da Nang and Nha Trang — covering a wide range of topics through a knowledge base and a GPT-4o classifier. It runs three flows: trial lessons, paid enrollment with a deposit, and free school visits, plus self-service cancellation and rescheduling. If a request goes quiet, the bot reminds the admin and director automatically, and hands the client a direct contact if there's still no answer — so nobody is left waiting. It also reminds clients ahead of their visit and checks in with admins the day after each trial.</span>
+            <span data-ru style="display:none">Русскоязычный Telegram-бот отвечает родителям на двух филиалах — в Дананге и Нячанге — по широкому кругу вопросов, опираясь на базу знаний и GPT-4o классификатор. Работает три флоу записи: пробное занятие, платное оформление места с депозитом и бесплатное ознакомление со школой, плюс самостоятельная отмена и перенос записи. Если заявка зависает, бот сам напоминает администратору и директору, а если ответа всё равно нет — передаёт клиенту прямой контакт, чтобы никто не остался без ответа. Отдельно бот напоминает о визите за день и уточняет у администратора результат пробного занятия на следующий день.</span>
+          </p>
+          <p class="case-desc">
+            <span data-en>Beyond the parent-facing bot, the same mini-app now runs internal operations: a children's attendance calendar for teachers, and a full staff payroll system — pay cards per employee across four rate types (monthly, per-lesson, per-shift, hourly), automatic salary calculation with a day-by-day breakdown, and coverage for substitutions and overtime. Admins also get instant AI-drafted answers inside Telegram when a parent messages them directly, instead of typing from scratch.</span>
+            <span data-ru style="display:none">Помимо бота для родителей, то же мини-приложение теперь ведёт внутренние процессы центра: посещаемость детей с календарём для педагогов, и полноценный расчёт зарплаты персонала — карточка на каждого сотрудника с четырьмя типами ставки (месячный фикс, за занятие, за смену, почасовая), автоматический расчёт с разбивкой по дням, учёт замен и переработки. Администраторы также получают готовый черновик ответа прямо в Telegram, когда родитель пишет им лично — не нужно формулировать с нуля.</span>
           </p>
           <div class="case-tags">
             <span class="tag">Telegram bot</span>
             <span class="tag">GPT-4o</span>
-            <span class="tag">Google Sheets</span>
-            <span class="tag">2 campuses</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">Staff payroll</span>
           </div>
         </div>
       </div>
@@ -364,12 +368,12 @@
             <span data-ru style="display:none">ИИ-калькулятор цен для производителя металлических дверей</span>
           </h2>
           <div class="result-line">
-            <span data-en>Manual Excel pricing and quote drafting replaced with an automated system managers review before sending.</span>
-            <span data-ru style="display:none">Ручной расчёт по Excel и составление КП заменены автоматической системой, которую менеджер проверяет перед отправкой.</span>
+            <span data-en>Manual Excel pricing and quote drafting now run through the system — the manager just reviews and sends.</span>
+            <span data-ru style="display:none">Ручной расчёт по Excel и оформление коммерческих предложений теперь ведёт система — менеджеру остаётся только проверить и отправить.</span>
           </div>
           <p class="case-desc">
-            <span data-en>The order arrives as plain text, and GPT-4o breaks it down into structured line items — sizes, materials, hardware. Over 160 business rules then encode real-world pricing logic: exterior doors get reinforced steel and double coating, fire-rated doors always include a closer, anti-panic systems are described correctly for each setup, and more. A ready commercial proposal is generated automatically — the manager just reviews and sends it.</span>
-            <span data-ru style="display:none">Заявка приходит в свободном тексте — GPT-4o сам раскладывает её на позиции: размеры, материалы, фурнитуру. Дальше подключаются более 160 бизнес-правил, которые кодируют реальную логику ценообразования: для наружных дверей — усиленная сталь и двойная покраска, для противопожарных — всегда доводчик, системы антипаники описываются корректно под каждую конфигурацию и так далее. Готовое коммерческое предложение формируется автоматически — менеджеру остаётся проверить и отправить.</span>
+            <span data-en>The order arrives as plain text, and GPT-4o breaks it into structured line items — sizes, materials, hardware. From there, over 160 business rules take over, encoding the real-world pricing logic: exterior doors get reinforced steel and double coating, fire-rated doors always include a closer, anti-panic systems are described precisely for each setup. The result is a ready commercial proposal — the manager just reviews it and sends it to the client.</span>
+            <span data-ru style="display:none">Заявка приходит обычным текстом — и GPT-4o сам раскладывает её на позиции: размеры, материалы, фурнитуру. Дальше в дело вступают более 160 бизнес-правил, которые знают реальную логику ценообразования: наружным дверям — усиленная сталь и двойная покраска, противопожарным — доводчик по умолчанию, системам антипаники — точное описание под каждую конфигурацию. На выходе — готовое коммерческое предложение: менеджеру остаётся проверить его и отправить клиенту.</span>
           </p>
           <div class="case-tags">
             <span class="tag">GPT-4o</span>
@@ -392,18 +396,23 @@
             <span data-ru style="display:none">Внутренняя панель управления детским центром</span>
           </h2>
           <div class="result-line">
-            <span data-en>One password-protected app running the whole center — children, attendance, payments, clubs and staff notes, translated automatically between Russian and English.</span>
-            <span data-ru style="display:none">Одно защищённое паролем приложение для всего центра — дети, посещаемость, оплаты, кружки и заметки персонала, с автоматическим переводом между русским и английским.</span>
+            <span data-en>One password-protected app running the whole center — children, attendance, payments, clubs and staff notes, in Russian and English.</span>
+            <span data-ru style="display:none">Одно защищённое паролем приложение на весь центр — дети, посещаемость, оплаты, кружки и заметки персонала, на русском и английском.</span>
           </div>
           <p class="case-desc">
-            <span data-en>Each staff member logs in with their own password. Children are grouped into four age groups — Toddler, Middle, Big, Primary School — with rich profile cards showing allergies, meals, nap time and more as badges. The app covers attendance and payment journals, club enrollment, and a bilingual notification feed — automatic birthday reminders plus staff notes to each other, translated on the fly — topped off with a daily statistics overview. Everything lives on the server; a Google Sheet is kept only as a read-only mirror, at the owner's request, so she can glance at the data.</span>
-            <span data-ru style="display:none">Каждый сотрудник входит под своим паролем. Дети разбиты на четыре возрастные группы — Toddler, Middle, Big, Primary School — с насыщенной карточкой ребёнка: аллергии, питание, тихий час и другое оформлены бейджиками. В приложении — журналы посещаемости и оплат, информация по кружкам и двуязычная лента уведомлений: автоматические напоминания о днях рождения и заметки персонала друг для друга с переводом на лету, плюс статистика дня. Все данные хранятся на сервере, а Google-таблица — это просто дубль для удобного просмотра, который завела по своей просьбе владелица центра.</span>
+            <span data-en>Each staff member signs in with a personal password. Children are split into four age groups — Toddler, Middle, Big, Primary School — and every child's card is built from clean badges: allergies, meals, nap time and other essentials, visible at a glance. Inside: attendance and payment journals, a clubs section, and a shared feed — birthdays, notes for colleagues, and instant translation between Russian and English. A daily stats summary ties it all together.</span>
+            <span data-ru style="display:none">Каждый сотрудник входит под личным паролем. Дети разделены на четыре возрастные группы — Toddler, Middle, Big, Primary School. Карточка каждого ребёнка собрана из аккуратных бейджей: аллергии, питание, тихий час и другие важные детали видны с первого взгляда. Внутри — журналы посещаемости и оплат, раздел по кружкам и общая лента: дни рождения, заметки для коллег и мгновенный перевод между русским и английским. Отдельно — сводка статистики за день, всё как на ладони.</span>
+          </p>
+          <p class="case-desc">
+            <span data-en>Beyond the children's side, the app now runs the center's internal management too: a staff module with schedules, advance day-off planning and a monthly summary per employee; task assignment and tracking for the whole team, with a personal task widget for each staff member; and a calendar-based payment log — separate for the kindergarten and for each individual club — replacing simple monthly tabs.</span>
+            <span data-ru style="display:none">Помимо карточек детей, приложение теперь ведёт весь внутренний менеджмент центра: модуль персонала с графиком, планированием отгулов и месячной сводкой по каждому сотруднику; постановка и отслеживание задач для команды с личным виджетом у каждого сотрудника; и календарь оплат — отдельно для сада и для каждого кружка — вместо простых месячных вкладок.</span>
           </p>
           <div class="case-tags">
             <span class="tag">React</span>
             <span class="tag">FastAPI</span>
             <span class="tag">Bilingual RU/EN</span>
-            <span class="tag">Per-user login</span>
+            <span class="tag">Staff scheduling</span>
+            <span class="tag">Task tracking</span>
           </div>
         </div>
       </div>
