@@ -377,21 +377,26 @@
         </div>
         <div>
           <h2 class="case-title">
-            <span data-en>AI pricing engine for a metal door manufacturer</span>
-            <span data-ru style="display:none">ИИ-калькулятор цен для производителя металлических дверей</span>
+            <span data-en>AI system that takes orders from email and builds price quotes</span>
+            <span data-ru style="display:none">ИИ-система, которая принимает заявки с почты и сама делает КП</span>
           </h2>
           <div class="result-line">
-            <span data-en>Manual Excel pricing and quote drafting now run through the system — the manager just reviews and sends.</span>
-            <span data-ru style="display:none">Ручной расчёт по Excel и оформление коммерческих предложений теперь ведёт система — менеджеру остаётся только проверить и отправить.</span>
+            <span data-en>Orders arrive by email in any format. The system reads them, works out what they are and builds the quote — the manager reviews and sends.</span>
+            <span data-ru style="display:none">Заявки приходят на почту в любом формате. Система читает их, определяет, что это, и строит КП — менеджеру остаётся проверить и отправить.</span>
           </div>
           <p class="case-desc">
-            <span data-en>The order arrives as plain text, and GPT-4o breaks it into structured line items — sizes, materials, hardware. From there, over 160 business rules take over, encoding the real-world pricing logic: exterior doors get reinforced steel and double coating, fire-rated doors always include a closer, anti-panic systems are described precisely for each setup. The result is a ready commercial proposal — the manager just reviews it and sends it to the client.</span>
-            <span data-ru style="display:none">Заявка приходит обычным текстом — и GPT-4o сам раскладывает её на позиции: размеры, материалы, фурнитуру. Дальше в дело вступают более 160 бизнес-правил, которые знают реальную логику ценообразования: наружным дверям — усиленная сталь и двойная покраска, противопожарным — доводчик по умолчанию, системам антипаники — точное описание под каждую конфигурацию. На выходе — готовое коммерческое предложение: менеджеру остаётся проверить его и отправить клиенту.</span>
+            <span data-en>Every order arrives differently: plain text with sizes written in everyone's own style, PDFs, photos, Excel, Word — and people make mistakes. Code alone stalls on odd input, and AI alone retells text and loses details. So the system combines both: a chain of AI calls marks the details in the original text (sizes, materials, hardware), code checks nothing was changed or lost, and hundreds of business rules do the pricing — for example, exterior doors always get double coating. A plain retail request is quoted automatically and the manager receives the total. Tenders need files uploaded by a person; about half is calculated automatically and a manager checks the rest. The output is a ready quote in Excel and PDF.</span>
+            <span data-ru style="display:none">Каждая заявка приходит по-своему: обычный текст, где размеры у каждого записаны в своём стиле, PDF, фото, Excel, Word — и люди ошибаются. Один код стопорится на странном вводе, а один ИИ пересказывает текст и теряет детали. Поэтому система совмещает оба подхода: цепочка вызовов ИИ размечает детали в исходном тексте (размеры, материалы, фурнитура), код проверяет, что ничего не изменено и не потеряно, а цену считают сотни бизнес-правил — например, наружным дверям всегда ставится двойная покраска. Обычную розничную заявку система считает сама, и менеджер получает сумму. Тендеры нужно загружать человеку; примерно половина считается автоматически, остальное проверяет менеджер. На выходе — готовое КП в Excel и PDF.</span>
+          </p>
+          <p class="case-desc">
+            <span data-en>Built over about a year and a half, and part of a larger CRM. It keeps evolving: new order formats and edge cases appear all the time.</span>
+            <span data-ru style="display:none">Делается около полутора лет и входит в большую CRM. Она продолжает развиваться: новые форматы заявок и особые случаи появляются постоянно.</span>
           </p>
           <div class="case-tags">
-            <span class="tag">GPT-4o</span>
+            <span class="tag">DeepSeek</span>
             <span class="tag">FastAPI</span>
-            <span class="tag">160+ pricing rules</span>
+            <span class="tag">Hundreds of pricing rules</span>
+            <span class="tag">Mail bot</span>
             <span class="tag">Excel & PDF export</span>
           </div>
         </div>
