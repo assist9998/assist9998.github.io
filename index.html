@@ -153,6 +153,8 @@
     padding: 0.9rem 1.2rem; border-left: 2px solid var(--accent);
     margin-bottom: 1.5rem; background: var(--accent-light);
   }
+  .case-more { display:inline-block; margin-top:1rem; font-size:.88rem; color:var(--accent); text-decoration:none; font-weight:500; }
+  .case-more:hover { text-decoration:underline; }
   .case-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
   .tag {
     font-size: 0.72rem; font-weight: 500; letter-spacing: 0.08em;
@@ -193,6 +195,8 @@
 <nav id="nav">
   <span class="nav-logo">Alexander Kozyrev</span>
   <div class="nav-right">
+    <a href="cases/" class="nav-link" data-en="Cases" data-ru="Кейсы">Cases</a>
+    <a href="services/" class="nav-link" data-en="Services" data-ru="Услуги">Services</a>
     <a href="demo.html" class="nav-link" data-en="Live demo" data-ru="Демо">Live demo</a>
     <a href="#contact" class="nav-link" data-en="Get in touch" data-ru="Написать">Get in touch</a>
     <div class="lang-toggle">
@@ -246,6 +250,7 @@
         </p>
       </div>
     </div>
+    <p style="margin-top:2rem"><a class="case-more" href="services/"><span data-en>All services in detail →</span><span data-ru style="display:none">Все услуги подробнее →</span></a></p>
   </div>
 </section>
 
@@ -326,6 +331,7 @@
             <span class="tag">PostgreSQL</span>
             <span class="tag">Staff payroll</span>
           </div>
+          <a class="case-more" href="cases/gorizont/"><span data-en>Read the full case →</span><span data-ru style="display:none">Читать кейс полностью →</span></a>
         </div>
       </div>
 
@@ -366,6 +372,7 @@
             <span class="tag">3 languages</span>
             <span class="tag">Google Sheets</span>
           </div>
+          <a class="case-more" href="cases/little-artists/"><span data-en>Read the full case →</span><span data-ru style="display:none">Читать кейс полностью →</span></a>
         </div>
       </div>
 
@@ -399,6 +406,7 @@
             <span class="tag">Mail bot</span>
             <span class="tag">Excel & PDF export</span>
           </div>
+          <a class="case-more" href="cases/ferrolend/"><span data-en>Read the full case →</span><span data-ru style="display:none">Читать кейс полностью →</span></a>
         </div>
       </div>
 
@@ -432,6 +440,7 @@
             <span class="tag">Staff scheduling</span>
             <span class="tag">Task tracking</span>
           </div>
+          <a class="case-more" href="cases/balu-kids/"><span data-en>Read the full case →</span><span data-ru style="display:none">Читать кейс полностью →</span></a>
         </div>
       </div>
 
@@ -493,7 +502,13 @@
     });
 
     document.documentElement.lang = lang;
+    try { localStorage.setItem('lang', lang); } catch (e) {}
   }
+  (function () {
+    var l = 'en';
+    try { l = localStorage.getItem('lang') || ((navigator.language || '').toLowerCase().indexOf('ru') === 0 ? 'ru' : 'en'); } catch (e) {}
+    if (l === 'ru') setLang('ru');
+  })();
 </script>
 <script async src="https://www.instagram.com/embed.js"></script>
 </body>

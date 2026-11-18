@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-en="AI system that turns emailed orders into price quotes | Case" data-ru="ИИ-система: из заявки на почте в готовое КП | Кейс">AI system that turns emailed orders into price quotes | Case</title>
+<meta name="description" content="Orders arrive in any format. AI marks the details, code verifies them, hundreds of rules price the quote. Excel and PDF output.">
+<link rel="canonical" href="https://assist9998.github.io/cases/ferrolend/index.html">
+<meta property="og:title" content="AI system that turns emailed orders into price quotes | Case">
+<meta property="og:description" content="Orders arrive in any format. AI marks the details, code verifies them, hundreds of rules price the quote. Excel and PDF output.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://assist9998.github.io/cases/ferrolend/index.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/site.css">
+
+</head>
+<body>
+<nav id="nav">
+  <a class="nav-logo" href="../.././" style="text-decoration:none;color:inherit">Alexander Kozyrev</a>
+  <div class="nav-right nav-links">
+    <a class="nav-link" href="../../cases/"><span data-en>Cases</span><span data-ru style="display:none">Кейсы</span></a>
+    <a class="nav-link" href="../../services/"><span data-en>Services</span><span data-ru style="display:none">Услуги</span></a>
+    <a class="nav-link" href="../../demo.html"><span data-en>Live demo</span><span data-ru style="display:none">Демо</span></a>
+    <a class="nav-link keep" href="https://t.me/aleksanderkozyrev" target="_blank" rel="noopener"><span data-en>Get in touch</span><span data-ru style="display:none">Написать</span></a>
+    <div class="lang-toggle">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="ru">RU</button>
+    </div>
+  </div>
+</nav>
+<header class="page-head">
+  <p class="crumbs"><a href="../../"><span data-en>Home</span><span data-ru style="display:none">Главная</span></a> / <a href="../"><span data-en>Cases</span><span data-ru style="display:none">Кейсы</span></a> / Ferrolend</p>
+  <p class="meta-line">Ferrolend · Belgorod · Russia</p>
+  <h1><span data-en>AI system that takes orders from email and builds price quotes</span>
+            <span data-ru style="display:none">ИИ-система, которая принимает заявки с почты и сама делает КП</span></h1>
+  <p class="lead"><span data-en>Orders arrive by email in any format. The system reads them, works out what they are and builds the quote — the manager reviews and sends.</span>
+            <span data-ru style="display:none">Заявки приходят на почту в любом формате. Система читает их, определяет, что это, и строит КП — менеджеру остаётся проверить и отправить.</span></p>
+</header>
+<section class="sec"><h2><span data-en>The task</span><span data-ru style="display:none">Задача</span></h2><p><span data-en>A manager spent time parsing every incoming order and calculating the quote by hand.</span><span data-ru style="display:none">Менеджер тратил время на ручной разбор каждой входящей заявки и расчёт КП.</span></p></section>
+<section class="sec"><h2><span data-en>What was built</span><span data-ru style="display:none">Что сделано</span></h2><p>
+            <span data-en>Every order arrives differently: plain text with sizes written in everyone's own style, PDFs, photos, Excel, Word — and people make mistakes. Code alone stalls on odd input, and AI alone retells text and loses details. So the system combines both: a chain of AI calls marks the details in the original text (sizes, materials, hardware), code checks nothing was changed or lost, and hundreds of business rules do the pricing — for example, exterior doors always get double coating. A plain retail request is quoted automatically and the manager receives the total. Tenders need files uploaded by a person; about half is calculated automatically and a manager checks the rest. The output is a ready quote in Excel and PDF.</span>
+            <span data-ru style="display:none">Каждая заявка приходит по-своему: обычный текст, где размеры у каждого записаны в своём стиле, PDF, фото, Excel, Word — и люди ошибаются. Один код стопорится на странном вводе, а один ИИ пересказывает текст и теряет детали. Поэтому система совмещает оба подхода: цепочка вызовов ИИ размечает детали в исходном тексте (размеры, материалы, фурнитура), код проверяет, что ничего не изменено и не потеряно, а цену считают сотни бизнес-правил — например, наружным дверям всегда ставится двойная покраска. Обычную розничную заявку система считает сама, и менеджер получает сумму. Тендеры нужно загружать человеку; примерно половина считается автоматически, остальное проверяет менеджер. На выходе — готовое КП в Excel и PDF.</span>
+          </p><p>
+            <span data-en>Built over about a year and a half, and part of a larger CRM. It keeps evolving: new order formats and edge cases appear all the time.</span>
+            <span data-ru style="display:none">Делается около полутора лет и входит в большую CRM. Она продолжает развиваться: новые форматы заявок и особые случаи появляются постоянно.</span>
+          </p><div class="callout"><p><span data-en>You can see how this kind of parsing works on sample orders.</span><span data-ru style="display:none">Как работает такой разбор, можно посмотреть на примерах заявок.</span> <a href="../../demo.html" style="color:#164f3b;font-weight:500"><span data-en>Open the live demo</span><span data-ru style="display:none">Открыть демо</span> →</a></p></div><div class="tagrow"><span class="tag">DeepSeek</span><span class="tag">FastAPI</span><span class="tag">Hundreds of pricing rules</span><span class="tag">Mail bot</span><span class="tag">Excel & PDF export</span></div></section>
+
+<section class="sec"><h2><span data-en>Related service</span><span data-ru style="display:none">Связанная услуга</span></h2>
+  <a class="card" href="../../services/order-automation/" style="max-width:420px"><div class="k"><span data-en>Service</span><span data-ru style="display:none">Услуга</span></div><div class="t"><span data-en>Order and quote automation</span><span data-ru style="display:none">Автоматизация заявок и КП</span></div><span class="go"><span data-en>Read more</span><span data-ru style="display:none">Подробнее</span> →</span></a></section>
+<div class="sub-contact">
+  <h2><span data-en>Have a similar task?</span><span data-ru style="display:none">Есть похожая задача?</span></h2>
+  <p style="max-width:640px;color:#33322e"><span data-en>Describe it in a couple of lines in Telegram. I will tell you honestly whether it can be automated and how.</span><span data-ru style="display:none">Опишите её парой строк в Telegram. Я честно скажу, можно ли это автоматизировать и как.</span></p>
+  <div class="btn-row"><a class="btn" href="https://t.me/aleksanderkozyrev" target="_blank" rel="noopener"><span data-en>Write on Telegram</span><span data-ru style="display:none">Написать в Telegram</span></a><a class="btn ghost" href="../../services/"><span data-en>All services</span><span data-ru style="display:none">Все услуги</span></a></div>
+</div>
+<footer>
+  <span>© 2025 Alexander Kozyrev</span>
+  <a href="https://t.me/aleksanderkozyrev" style="color:var(--gray);text-decoration:none;" target="_blank" rel="noopener">@aleksanderkozyrev</a>
+</footer>
+
+<script src="../../assets/site.js"></script>
+</body>
+</html>
