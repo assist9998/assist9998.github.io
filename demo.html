@@ -85,6 +85,12 @@
   .pr.sum { font-weight: 500; border-top: 1px dashed var(--border); margin-top: 0.3rem; padding-top: 0.45rem; }
   .pr.total { font-size: 1rem; }
   .def { display: inline-block; font-size: 0.68rem; padding: 0 0.4rem; margin-left: 0.4rem; border-radius: 20px; background: var(--warn-bg); color: var(--warn); vertical-align: middle; }
+  .how { padding:3rem 0 1rem; }
+  .how h2 { font-family:'DM Serif Display',serif; font-size:1.7rem; font-weight:400; margin-bottom:1.2rem; }
+  .steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:1rem; }
+  .step { background:#fff; border:1px solid var(--border); padding:1.1rem; border-radius:2px; font-weight:400; font-size:.93rem; }
+  .step b { display:block; font-family:'DM Serif Display',serif; font-size:1.5rem; color:var(--accent); font-weight:400; margin-bottom:.3rem; }
+  .honest { margin-top:1.25rem; background:var(--warn-bg); border:1px solid #f0dca0; padding:1rem 1.2rem; border-radius:2px; font-size:.93rem; font-weight:400; color:#5c3d00; max-width:760px; }
   .about { background: var(--accent-light); padding: 3.5rem 0; margin-top: 3rem; }
   .about h2 { font-family: 'DM Serif Display', serif; font-size: 1.9rem; font-weight: 400; margin-bottom: 1rem; }
   .about p { max-width: 680px; margin-bottom: 0.9rem; color: #33322e; }
@@ -134,6 +140,14 @@
   </div>
 </div>
 
+<section class="how">
+  <div class="wrap">
+    <h2 id="hH"></h2>
+    <div class="steps" id="hSteps"></div>
+    <div class="honest" id="hHonest"></div>
+  </div>
+</section>
+
 <section class="about">
   <div class="wrap">
     <h2 id="aH"></h2>
@@ -154,16 +168,17 @@ const I18N = {
     h1: 'A messy order goes in.<br><em>A structured quote comes out.</em>',
     lead: 'Below are three orders written the way customers write them. Each was run through the actual system (the same code that works with real orders), and this is what it returned.',
     note: 'No customer data is used. Prices are calculated on a demonstration price list, not a customer\'s real one. Positions, sizes, surcharges and warnings are the system\'s real output.',
-    tabs: ['Office doors', 'Fire doors', 'Exterior door'],
+    tabs: ['Office doors', 'Fire doors', 'Exterior door', 'Order split over lines'],
     tIn: 'Order as it arrived',
     tOut: 'What the system built',
     pr: { door: 'Door', color: 'Colour surcharge', steel: 'Heavier steel (exterior door)', inst: 'Installation', unit: 'Per door', sum: 'Position total', closers: 'Arm closers', deliv: 'Delivery (default, address not given)', total: 'Total', cur: '₽' },
     pos: 'Position', qty: 'pcs', def: 'default',
     f: { type: 'Type', size: 'Size (order → frame)', leaf: 'Leaves', side: 'Opening side', color: 'Colour', thr: 'Threshold', closer: 'Closer', lock: 'Lock', handle: 'Handle' },
     mgr: 'Items marked "default" were not in the order: the system filled them in from standard settings. Warnings show where a manager must look before the quote goes out.',
+    how: { h: 'How the real system works', steps: ['The AI marks the details in your original text instead of retelling it.', 'Code checks that the text was not changed and nothing was lost.', 'Business rules and your price list calculate the price.', 'Anything uncertain is flagged. A manager reviews and sends the quote.'], honest: 'Honest status: this is one system built over about a year and a half, and it is still being refined, because new order formats and edge cases keep appearing. Tenders need a person to upload the files, and about half of them is calculated automatically. That is why every project is tailored to the client\'s own orders and rules.' },
     about: {
       h: 'What else the real system does',
-      body: '<ul><li>Reads emails with attachments: PDF, Excel, photos of drawings, tender files.</li><li>Code and AI work together: AI marks up the original text, code checks that nothing was changed and applies the pricing rules.</li><li>Outputs a ready quote in Excel and PDF in the customer\'s template. A manager reviews and sends it.</li><li>Sits inside a CRM: deals, stages, managers, notifications to Telegram.</li></ul><p>If your team turns incoming requests into quotes by hand, I can build something similar for your business: your price list, your rules, your formats.</p>',
+      body: '<ul><li>Reads emails with attachments: PDF, Excel, photos of drawings, tender files.</li><li>Code and AI work together: AI marks up the original text, code checks that nothing was changed and applies the pricing rules.</li><li>Outputs a ready quote in Excel and PDF in the customer\'s template. A manager reviews and sends it.</li><li>Sits inside a CRM: deals, stages, managers, notifications to Telegram.</li></ul><p>If your team turns incoming orders into quotes by hand, describe a few typical orders in Telegram. I will tell you honestly whether this approach fits and what the project would involve.</p>',
       cta: 'Discuss your case in Telegram'
     },
     foot: 'No customer data. © Alexander Kozyrev. <a href="./">Back to portfolio</a>'
@@ -174,16 +189,17 @@ const I18N = {
     h1: 'На входе хаотичная заявка.<br><em>На выходе структурированный расчёт.</em>',
     lead: 'Ниже три заявки в том виде, как их пишут заказчики. Каждую прогнали через настоящую систему (тот же код, что работает с боевыми заявками). Вот что она выдала.',
     note: 'Данных заказчиков здесь нет. Цены посчитаны по демонстрационному прайсу, а не по реальному прайсу заказчика. Позиции, размеры, наценки и предупреждения это настоящий результат системы.',
-    tabs: ['Офисные двери', 'Противопожарные', 'Наружная дверь'],
+    tabs: ['Офисные двери', 'Противопожарные', 'Наружная дверь', 'Заявка в несколько строк'],
     tIn: 'Заявка как пришла',
     tOut: 'Что построила система',
     pr: { door: 'Дверь', color: 'Наценка за цвет', steel: 'Усиленная сталь (наружная дверь)', inst: 'Монтаж', unit: 'За дверь', sum: 'Итого по позиции', closers: 'Доводчики рычажные', deliv: 'Доставка (по умолчанию, адрес не указан)', total: 'Итого', cur: '₽' },
     pos: 'Позиция', qty: 'шт', def: 'по умолчанию',
     f: { type: 'Тип', size: 'Размер (заявка → коробка)', leaf: 'Створок', side: 'Открывание', color: 'Цвет', thr: 'Порог', closer: 'Доводчик', lock: 'Замок', handle: 'Ручка' },
     mgr: 'Поля с пометкой «по умолчанию» не были указаны в заявке: система подставила их из стандартных настроек. Предупреждения показывают, на что менеджеру нужно посмотреть до отправки КП.',
+    how: { h: 'Как устроена настоящая система', steps: ['ИИ размечает детали в исходном тексте, а не пересказывает его.', 'Код проверяет, что текст не изменился и ничего не потеряно.', 'Правила бизнеса и ваш прайс считают цену.', 'Всё неясное помечается. Менеджер проверяет и отправляет КП.'], honest: 'Честный статус: это одна система, которую я делаю около полутора лет, и она до сих пор дорабатывается, потому что появляются новые форматы заявок и особые случаи. Тендеры требуют, чтобы человек загрузил файлы, и примерно половина считается автоматически. Поэтому каждый проект подгоняется под заявки и правила конкретного клиента.' },
     about: {
       h: 'Что ещё делает настоящая система',
-      body: '<ul><li>Читает письма с вложениями: PDF, Excel, фото чертежей, тендерные файлы.</li><li>Код и ИИ работают вместе: ИИ размечает исходный текст, код проверяет, что в нём ничего не изменилось, и применяет правила цены.</li><li>Выдаёт готовое КП в Excel и PDF по шаблону заказчика. Менеджер проверяет и отправляет сам.</li><li>Встроена в CRM: сделки, этапы, менеджеры, уведомления в Telegram.</li></ul><p>Если в вашей компании заявки превращают в КП вручную, я могу сделать похожее под ваш бизнес: ваш прайс, ваши правила, ваши форматы.</p>',
+      body: '<ul><li>Читает письма с вложениями: PDF, Excel, фото чертежей, тендерные файлы.</li><li>Код и ИИ работают вместе: ИИ размечает исходный текст, код проверяет, что в нём ничего не изменилось, и применяет правила цены.</li><li>Выдаёт готовое КП в Excel и PDF по шаблону заказчика. Менеджер проверяет и отправляет сам.</li><li>Встроена в CRM: сделки, этапы, менеджеры, уведомления в Telegram.</li></ul><p>Если в вашей компании заявки превращают в КП вручную, опишите в Telegram пару типичных заявок. Я честно скажу, подходит ли такой подход и что войдёт в проект.</p>',
       cta: 'Обсудить вашу задачу в Telegram'
     },
     foot: 'Данных заказчиков нет. © Alexander Kozyrev. <a href="./">Назад в портфолио</a>'
@@ -226,6 +242,17 @@ const EX = [
       ['Размер дан «в свету»: размер коробки пересчитан по правилу завода. Сверьте перед отправкой.', 'Size is given "in the clear": the frame size was recalculated by the factory rule. Check before sending.'],
       ['Адрес доставки не указан: доставка посчитана по умолчанию как по городу.', 'Delivery address not given: delivery was calculated as city delivery by default.']
     ]
+  },
+  {
+    text: 'Добрый день! Прошу посчитать:\n1) Дверь входная металлическая, наружная,\nразмер в свету 900 х 2100,\nоткрывание правое, замок и ручка стандарт, RAL 8017 - 2 шт\n2) Дверь техническая 800х2000\nбез замка, цвет серый RAL 7040 - 3 шт\nДоставка по адресу: г. Белгород, ул. Победы 10',
+    pos: [
+      { qty: 2, type: ['Стальная распашная дверь, наружная', 'Steel swing door, exterior'], order: '900×2100 (в свету / in the clear)', frame: '970×2250', leaves: 1, side: ['правая', 'right'], color: 'RAL 8017', thr: '45', closer: ['без доводчика', 'no closer'], lock: ['Fuaro, цилиндр ключ-ключ', 'Fuaro, key-key cylinder'], handle: ['чёрная нажимная', 'black lever'], defs: ['thr', 'closer'], pr: { door: 32290, color: 2470, steel: 4660, install: 6990 } },
+      { qty: 3, type: ['Стальная техническая дверь', 'Steel technical door'], order: '800×2000', frame: '760×1980', leaves: 1, side: ['не указано', 'not given'], color: 'RAL 7040', thr: '45', closer: ['без доводчика', 'no closer'], lock: ['без замка', 'no lock'], handle: ['чёрная нажимная', 'black lever'], defs: ['thr', 'closer', 'side', 'handle'], pr: { door: 27060, color: 0, steel: 0, install: 6990 } }
+    ],
+    delivery: null,
+    flags: [
+      ['Размер дан «в свету»: размер коробки пересчитан по правилу завода. Сверьте перед отправкой.', 'Size is given "in the clear": the frame size was recalculated by the factory rule. Check before sending.']
+    ]
   }
 ];
 
@@ -265,10 +292,10 @@ function render() {
     </div>`).join('');
   const flags = ex.flags.map(f => `<span class="flag">${esc(L(f))}</span>`).join('');
   const line = ex.line ? `<div class="pos"><div class="pos-h"><span>${esc(t.pr.closers)}</span><span>${ex.line.qty} ${esc(t.qty)}</span></div><div class="prices"><div class="pr"><span>${esc(t.pr.door)}</span><span>${rub(ex.line.price)}</span></div><div class="pr"><span>${esc(t.pr.inst)}</span><span>${rub(ex.line.install)}</span></div><div class="pr sum"><span>${esc(t.pr.sum)}</span><span>${rub((ex.line.price + ex.line.install) * ex.line.qty)}</span></div></div></div>` : '';
-  let total = ex.delivery;
+  let total = ex.delivery || 0;
   ex.pos.forEach(p => { total += unit(p) * p.qty; });
   if (ex.line) total += (ex.line.price + ex.line.install) * ex.line.qty;
-  const tot = `<div class="pos"><div class="prices" style="border-top:none"><div class="pr"><span>${esc(t.pr.deliv)}</span><span>${rub(ex.delivery)}</span></div><div class="pr sum total"><span>${esc(t.pr.total)}</span><span>${rub(total)}</span></div></div></div>`;
+  const tot = `<div class="pos"><div class="prices" style="border-top:none">${ex.delivery ? `<div class="pr"><span>${esc(t.pr.deliv)}</span><span>${rub(ex.delivery)}</span></div>` : ''}<div class="pr sum total"><span>${esc(t.pr.total)}</span><span>${rub(total)}</span></div></div></div>`;
   document.getElementById('out').innerHTML = html + line + tot + `<div class="flags">${flags}</div>`;
 }
 
@@ -285,6 +312,9 @@ function applyLang(lang) {
   document.getElementById('tIn').textContent = t.tIn;
   document.getElementById('tOut').textContent = t.tOut;
   document.getElementById('tMgr').textContent = t.mgr;
+  document.getElementById('hH').textContent = t.how.h;
+  document.getElementById('hSteps').innerHTML = t.how.steps.map((x, i) => `<div class="step"><b>${i + 1}</b>${esc(x)}</div>`).join('');
+  document.getElementById('hHonest').textContent = t.how.honest;
   document.getElementById('aH').innerHTML = t.about.h;
   document.getElementById('aBody').innerHTML = t.about.body;
   document.getElementById('aH').textContent = t.about.h;
