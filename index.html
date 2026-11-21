@@ -87,7 +87,7 @@
     margin-bottom: 2rem; max-width: 750px;
   }
   h1 em { font-style: italic; color: var(--gray); }
-  .hero-desc { font-size: 1.05rem; color: var(--gray); max-width: 480px; line-height: 1.75; margin-bottom: 3rem; }
+  .hero-desc { font-size: 1.05rem; color: #66645d; max-width: 480px; line-height: 1.75; margin-bottom: 3rem; }
   .hero-cta {
     display: inline-flex; align-items: center; gap: 0.6rem;
     background: var(--accent); color: var(--white);
@@ -119,7 +119,7 @@
   .service-item:hover { background: var(--mid); }
   .service-num { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--border); display: block; margin-bottom: 1rem; }
   .service-title { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.6rem; }
-  .service-desc { font-size: 0.85rem; color: var(--gray); line-height: 1.65; }
+  .service-desc { font-size: 0.85rem; color: #66645d; line-height: 1.65; }
 
   /* HOW IT WORKS */
   .how-wrap {
@@ -140,7 +140,15 @@
   .how-step:last-child .how-arrow { display: none; }
   .how-icon { font-size: 1.4rem; margin-bottom: 1rem; display: block; }
   .how-title { font-size: 0.9rem; font-weight: 500; margin-bottom: 0.5rem; }
-  .how-desc { font-size: 0.82rem; color: var(--gray); line-height: 1.6; }
+  .how-desc { font-size: 0.82rem; color: #66645d; line-height: 1.6; }
+
+  @media (max-width: 599px) {
+    .service-item, .how-step { padding: 1.4rem 1.25rem; border-right: none; border-bottom: 1px solid var(--border); }
+    .service-item:last-child, .how-step:last-child { border-bottom: none; }
+    .service-num { margin-bottom: 0.4rem; }
+    .how-icon { margin-bottom: 0.5rem; }
+    section { padding: 3rem 0; }
+  }
 
   /* CASES */
   .cases { border-top: 1px solid var(--border); }
@@ -154,7 +162,7 @@
   .case-client { font-size: 1.05rem; font-weight: 500; margin-bottom: 0.4rem; }
   .case-location { font-size: 0.82rem; color: var(--gray); letter-spacing: 0.04em; }
   .case-title { font-family: 'DM Serif Display', serif; font-size: 1.45rem; font-weight: 400; line-height: 1.3; margin-bottom: 1rem; }
-  .case-desc { font-size: 0.9rem; color: var(--gray); line-height: 1.75; margin-bottom: 1.5rem; }
+  .case-desc { font-size: 0.9rem; color: #66645d; line-height: 1.75; margin-bottom: 1.5rem; }
   .result-line {
     font-size: 0.88rem; font-weight: 500; color: var(--black);
     padding: 0.9rem 1.2rem; border-left: 2px solid var(--accent);
@@ -229,8 +237,8 @@
     <span data-ru style="display:none">Ваш бизнес работает.<br><em>Даже когда вы отдыхаете.</em></span>
   </h1>
   <p class="hero-desc fade-up">
-    <span data-en>I build automation systems that handle customer inquiries, bookings, and internal workflows — 24/7, without your team lifting a finger.</span>
-    <span data-ru style="display:none">Строю системы автоматизации которые берут на себя обращения клиентов, записи и внутренние процессы — 24/7, без участия вашей команды.</span>
+    <span data-en>I build systems that take the routine off your team: handling orders, quotes and documents, booking clients, keeping records and sending notifications.</span>
+    <span data-ru style="display:none">Строю системы, которые снимают с команды рутину: разбор заявок, расчёты и документы, запись клиентов, учёт и уведомления.</span>
   </p>
   <a href="https://t.me/aleksanderkozyrev" target="_blank" class="hero-cta fade-up">
     <span data-en>Let's talk</span><span data-ru style="display:none">Написать в Telegram</span> <span class="arrow">→</span>
@@ -243,26 +251,26 @@
     <div class="services">
       <div class="service-item fade-up">
         <span class="service-num">01</span>
-        <p class="service-title" data-en="Customer-facing bots" data-ru="Боты для клиентов">Customer-facing bots</p>
+        <p class="service-title" data-en="Order and quote automation" data-ru="Автоматизация заявок и КП">Order and quote automation</p>
         <p class="service-desc">
-          <span data-en>Telegram bots that answer FAQs, take bookings and qualify leads — 24/7, in any language.</span>
-          <span data-ru style="display:none">Телеграм-боты которые отвечают на вопросы, принимают записи и квалифицируют лиды — 24/7, на любом языке.</span>
+          <span data-en>Orders arrive by email in any form. The system reads them, prices them by your rules and prepares the quote. A manager reviews and sends it.</span>
+          <span data-ru style="display:none">Заявки приходят на почту в любом виде. Система читает их, считает цену по вашим правилам и готовит КП. Менеджер проверяет и отправляет.</span>
         </p>
       </div>
       <div class="service-item fade-up">
         <span class="service-num">02</span>
-        <p class="service-title" data-en="Internal automation" data-ru="Внутренние процессы">Internal automation</p>
+        <p class="service-title" data-en="Telegram bots and booking" data-ru="Telegram-боты и запись">Telegram bots and booking</p>
         <p class="service-desc">
-          <span data-en>Eliminate manual, repetitive work inside your team — reports, notifications, data pipelines, integrations.</span>
-          <span data-ru style="display:none">Убираю ручную рутину внутри команды — отчёты, уведомления, обработка данных, интеграции между системами.</span>
+          <span data-en>A bot answers client questions, books lessons, sends reminders and notifies your staff. In any language, around the clock.</span>
+          <span data-ru style="display:none">Бот отвечает на вопросы клиентов, записывает на занятия, напоминает и уведомляет сотрудников. На любом языке, круглосуточно.</span>
         </p>
       </div>
       <div class="service-item fade-up">
         <span class="service-num">03</span>
-        <p class="service-title" data-en="Booking systems" data-ru="Системы записи">Booking systems</p>
+        <p class="service-title" data-en="Internal systems and CRM" data-ru="Внутренние системы и CRM">Internal systems and CRM</p>
         <p class="service-desc">
-          <span data-en>Web forms in any language connected to your CRM, Google Sheets and instant admin alerts.</span>
-          <span data-ru style="display:none">Веб-формы на любом языке, подключённые к CRM, Google Sheets и мгновенным уведомлениям.</span>
+          <span data-en>Client and staff cards, attendance, payments, payroll, contracts and documents. One system instead of spreadsheets and chats.</span>
+          <span data-ru style="display:none">Карточки клиентов и сотрудников, посещаемость, оплаты, зарплата, договоры и документы. Одна система вместо таблиц и чатов.</span>
         </p>
       </div>
     </div>
@@ -277,36 +285,36 @@
       <div class="how-step fade-up">
         <span class="how-arrow">→</span>
         <span class="how-icon">💬</span>
-        <p class="how-title" data-en="Client writes" data-ru="Клиент пишет">Client writes</p>
+        <p class="how-title" data-en="An order or a question arrives" data-ru="Приходит заявка или вопрос">An order or a question arrives</p>
         <p class="how-desc">
-          <span data-en>In Telegram, WhatsApp or via a web form — any time of day.</span>
-          <span data-ru style="display:none">В Telegram, WhatsApp или через веб-форму — в любое время суток.</span>
+          <span data-en>By email, in Telegram, through a form or as a file. At any time.</span>
+          <span data-ru style="display:none">Письмом, в Telegram, через форму или файлом. В любое время.</span>
         </p>
       </div>
       <div class="how-step fade-up">
         <span class="how-arrow">→</span>
         <span class="how-icon">⚡</span>
-        <p class="how-title" data-en="Bot responds instantly" data-ru="Бот отвечает сразу">Bot responds instantly</p>
+        <p class="how-title" data-en="The system handles it" data-ru="Система разбирает">The system handles it</p>
         <p class="how-desc">
-          <span data-en>Answers questions, collects details, completes the booking — no human needed.</span>
-          <span data-ru style="display:none">Отвечает на вопросы, собирает данные, оформляет запись — без участия сотрудника.</span>
+          <span data-en>Reads it, works out what it is, then calculates or answers by your rules.</span>
+          <span data-ru style="display:none">Читает, определяет, что это, затем считает или отвечает по вашим правилам.</span>
         </p>
       </div>
       <div class="how-step fade-up">
         <span class="how-arrow">→</span>
         <span class="how-icon">📋</span>
-        <p class="how-title" data-en="Data is saved" data-ru="Данные сохранены">Data is saved</p>
+        <p class="how-title" data-en="Everything is recorded" data-ru="Всё записано">Everything is recorded</p>
         <p class="how-desc">
-          <span data-en>Everything lands in Google Sheets, CRM or your preferred system automatically.</span>
-          <span data-ru style="display:none">Всё попадает в Google Sheets, CRM или нужную систему автоматически.</span>
+          <span data-en>The result lands in your system: a quote, a client card, a booking, a document.</span>
+          <span data-ru style="display:none">Результат попадает в вашу систему: расчёт, карточка клиента, запись, документ.</span>
         </p>
       </div>
       <div class="how-step fade-up">
         <span class="how-icon">🔔</span>
         <p class="how-title" data-en="You get notified" data-ru="Вы получаете уведомление">You get notified</p>
         <p class="how-desc">
-          <span data-en>Only when a real decision is needed. Everything else — handled.</span>
-          <span data-ru style="display:none">Только когда нужно ваше решение. Всё остальное — уже сделано.</span>
+          <span data-en>When a person needs to check or decide. The rest is already done.</span>
+          <span data-ru style="display:none">Когда нужна проверка или решение человека. Остальное уже сделано.</span>
         </p>
       </div>
     </div>
@@ -375,8 +383,8 @@
             <span data-ru style="display:none">Трёхъязычная система записи для арт-студии</span>
           </h2>
           <div class="result-line">
-            <span data-en>Registrations went from manual WhatsApp chats to fully automatic — zero admin involvement.</span>
-            <span data-ru style="display:none">Записи перешли с ручных переписок в WhatsApp на полный автомат — ноль участия администратора.</span>
+            <span data-en>Registrations went from manual WhatsApp chats to fully automatic, with zero admin involvement.</span>
+            <span data-ru style="display:none">Записи перешли с ручных переписок в WhatsApp на полный автомат, без участия администратора.</span>
           </div>
           <p class="case-desc">
             <span data-en>Parents book children's art classes via a web form or Telegram bot in English, Vietnamese and Russian. Three class types with different pricing handled automatically. Every registration lands in Google Sheets with an instant Telegram notification.</span>
@@ -404,12 +412,12 @@
             <span data-ru style="display:none">ИИ-система, которая принимает заявки с почты и сама делает КП</span>
           </h2>
           <div class="result-line">
-            <span data-en>Orders arrive by email in any format. The system reads them, works out what they are and builds the quote — the manager reviews and sends.</span>
-            <span data-ru style="display:none">Заявки приходят на почту в любом формате. Система читает их, определяет, что это, и строит КП — менеджеру остаётся проверить и отправить.</span>
+            <span data-en>Orders arrive by email in any format. The system reads them, works out what they are and builds the quote. The manager reviews and sends.</span>
+            <span data-ru style="display:none">Заявки приходят на почту в любом формате. Система читает их, определяет, что это, и строит КП, менеджеру остаётся проверить и отправить.</span>
           </div>
           <p class="case-desc">
-            <span data-en>Every order arrives differently: plain text with sizes written in everyone's own style, PDFs, photos, Excel, Word — and people make mistakes. Code alone stalls on odd input, and AI alone retells text and loses details. So the system combines both: a chain of AI calls marks the details in the original text (sizes, materials, hardware), code checks nothing was changed or lost, and hundreds of business rules do the pricing — for example, exterior doors always get double coating. A plain retail request is quoted automatically and the manager receives the total. Tenders need files uploaded by a person; about half is calculated automatically and a manager checks the rest. The output is a ready quote in Excel and PDF.</span>
-            <span data-ru style="display:none">Каждая заявка приходит по-своему: обычный текст, где размеры у каждого записаны в своём стиле, PDF, фото, Excel, Word — и люди ошибаются. Один код стопорится на странном вводе, а один ИИ пересказывает текст и теряет детали. Поэтому система совмещает оба подхода: цепочка вызовов ИИ размечает детали в исходном тексте (размеры, материалы, фурнитура), код проверяет, что ничего не изменено и не потеряно, а цену считают сотни бизнес-правил — например, наружным дверям всегда ставится двойная покраска. Обычную розничную заявку система считает сама, и менеджер получает сумму. Тендеры нужно загружать человеку; примерно половина считается автоматически, остальное проверяет менеджер. На выходе — готовое КП в Excel и PDF.</span>
+            <span data-en>Every order arrives differently: plain text with sizes written in everyone's own style, PDFs, photos, Excel, Word, and people make mistakes. Code alone stalls on odd input, and AI alone retells text and loses details. So the system combines both: a chain of AI calls marks the details in the original text (sizes, materials, hardware), code checks nothing was changed or lost, and hundreds of business rules do the pricing, for example, exterior doors always get double coating. A plain retail request is quoted automatically and the manager receives the total. Tenders need files uploaded by a person; about half is calculated automatically and a manager checks the rest. The output is a ready quote in Excel and PDF.</span>
+            <span data-ru style="display:none">Каждая заявка приходит по-своему: обычный текст, где размеры у каждого записаны в своём стиле, PDF, фото, Excel, Word, и люди ошибаются. Один код стопорится на странном вводе, а один ИИ пересказывает текст и теряет детали. Поэтому система совмещает оба подхода: цепочка вызовов ИИ размечает детали в исходном тексте (размеры, материалы, фурнитура), код проверяет, что ничего не изменено и не потеряно, а цену считают сотни бизнес-правил, например, наружным дверям всегда ставится двойная покраска. Обычную розничную заявку система считает сама, и менеджер получает сумму. Тендеры нужно загружать человеку; примерно половина считается автоматически, остальное проверяет менеджер. На выходе — готовое КП в Excel и PDF.</span>
           </p>
           <p class="case-desc">
             <span data-en>It has grown beyond quoting into a CRM that automates the paperwork around an order. A mail-sorting bot reads incoming mail, works out what each email is and notifies managers, for example that an order has been calculated. Every order becomes a deal on a board with stages, a manager and a customer card. Enterprise cards are loaded from email and counterparties are created automatically. Contracts, estimates and invoices are filled in from the quote, and the order for production is prepared. The system can compare prices from different suppliers. Managers get tasks, and a separate section handles installation objects with their documents and deadlines. A cross-checking tool compares the customer's specification with the order for production, so mistakes are caught before they reach the factory. Next: more notifications for managers. This is only the beginning.</span>
