@@ -47,7 +47,13 @@
     transition: color 0.2s;
   }
   .nav-link:hover { color: var(--accent); }
-  @media (max-width: 760px) { nav { padding: 1rem 1.25rem; gap: 1rem; } .nav-right { gap: 1rem; } .nav-link:not(.keep) { display: none; } }
+  .nav-burger { display: none; align-items: center; justify-content: center; width: 40px; height: 36px; background: none; border: 1px solid var(--border); border-radius: 2px; cursor: pointer; color: var(--black); padding: 0; }
+  .nav-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: #f9f7f4; border-bottom: 1px solid var(--border); padding: 0.25rem 1.25rem 0.75rem; box-shadow: 0 8px 16px rgba(0,0,0,0.06); }
+  .nav-menu a { padding: 0.9rem 0; font-size: 0.88rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray); text-decoration: none; border-bottom: 1px solid var(--border); }
+  .nav-menu a:last-child { border-bottom: none; color: var(--accent); }
+  nav.open .nav-menu { display: flex; }
+  @media (max-width: 760px) { nav { padding: 1rem 1.25rem; gap: 1rem; } .nav-right { gap: 1rem; } .nav-link { display: none; } .nav-burger { display: inline-flex; } }
+  @media (min-width: 761px) { .nav-menu, nav.open .nav-menu { display: none; } }
   .lang-toggle {
     display: flex; gap: 0; border: 1px solid var(--border); overflow: hidden;
     border-radius: 2px;
@@ -205,6 +211,14 @@
       <button class="lang-btn active" onclick="setLang('en')">EN</button>
       <button class="lang-btn" onclick="setLang('ru')">RU</button>
     </div>
+    <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false"><svg width="18" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M1 1h16M1 7h16M1 13h16"/></svg></button>
+  </div>
+  <div class="nav-menu">
+    <a href="cases/" data-en="Cases" data-ru="Кейсы">Cases</a>
+    <a href="services/" data-en="Services" data-ru="Услуги">Services</a>
+    <a href="articles/" data-en="Articles" data-ru="Статьи">Articles</a>
+    <a href="demo.html" data-en="Live demo" data-ru="Демо">Live demo</a>
+    <a href="#contact" data-en="Get in touch" data-ru="Написать">Get in touch</a>
   </div>
 </nav>
 
@@ -398,10 +412,15 @@
             <span data-ru style="display:none">Каждая заявка приходит по-своему: обычный текст, где размеры у каждого записаны в своём стиле, PDF, фото, Excel, Word — и люди ошибаются. Один код стопорится на странном вводе, а один ИИ пересказывает текст и теряет детали. Поэтому система совмещает оба подхода: цепочка вызовов ИИ размечает детали в исходном тексте (размеры, материалы, фурнитура), код проверяет, что ничего не изменено и не потеряно, а цену считают сотни бизнес-правил — например, наружным дверям всегда ставится двойная покраска. Обычную розничную заявку система считает сама, и менеджер получает сумму. Тендеры нужно загружать человеку; примерно половина считается автоматически, остальное проверяет менеджер. На выходе — готовое КП в Excel и PDF.</span>
           </p>
           <p class="case-desc">
+            <span data-en>The same system includes a CRM. Every order becomes a deal on a board with its own stages, a manager and a customer card. After a quote is calculated, AI fills the customer card from the email (name, contact, phone, requisites) and recognises a customer who is already in the base. One customer can have several projects. From a quote the CRM also prepares the contract, the estimate and the invoice, and the order for production. It keeps tasks for managers, and a separate section handles installation objects with their documents and deadlines.</span>
+            <span data-ru style="display:none">В ту же систему входит CRM. Каждая заявка становится сделкой на доске со своими этапами, менеджером и карточкой заказчика. После расчёта ИИ заполняет карточку заказчика из письма (название, контакт, телефон, реквизиты) и узнаёт заказчика, который уже есть в базе. У одного заказчика может быть несколько проектов. Из КП CRM готовит договор, смету и счёт, а также заказ на производство. В ней есть задачи для менеджеров, а отдельный раздел ведёт монтажные объекты с документами и сроками.</span>
+          </p>
+          <p class="case-desc">
             <span data-en>Built over about a year and a half, and part of a larger CRM. It keeps evolving: new order formats and edge cases appear all the time.</span>
             <span data-ru style="display:none">Делается около полутора лет и входит в большую CRM. Она продолжает развиваться: новые форматы заявок и особые случаи появляются постоянно.</span>
           </p>
           <div class="case-tags">
+            <span class="tag">CRM</span>
             <span class="tag">DeepSeek</span>
             <span class="tag">FastAPI</span>
             <span class="tag">Hundreds of pricing rules</span>
@@ -472,6 +491,10 @@
 <script>
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 40); });
+  const burger = document.getElementById('burger');
+  burger.addEventListener('click', (e) => { e.stopPropagation(); const o = nav.classList.toggle('open'); burger.setAttribute('aria-expanded', o ? 'true' : 'false'); });
+  document.addEventListener('click', (e) => { if (!nav.contains(e.target)) nav.classList.remove('open'); });
+  nav.querySelectorAll('.nav-menu a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => {
