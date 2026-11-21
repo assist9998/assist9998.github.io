@@ -108,14 +108,15 @@
 
   /* SERVICES */
   .services {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 2px; border: 1px solid var(--border);
+    display: grid; grid-template-columns: 1fr;
+    gap: 1px; background: var(--border); border: 1px solid var(--border);
   }
+  @media (min-width: 600px) { .services { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 960px) { .services { grid-template-columns: repeat(3, 1fr); } }
   .service-item {
-    padding: 2rem 1.75rem; border-right: 1px solid var(--border);
+    padding: 2rem 1.75rem; border-right: none;
     background: var(--white); transition: background 0.2s;
   }
-  .service-item:last-child { border-right: none; }
   .service-item:hover { background: var(--mid); }
   .service-num { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--border); display: block; margin-bottom: 1rem; }
   .service-title { font-size: 0.95rem; font-weight: 500; margin-bottom: 0.6rem; }
@@ -143,8 +144,9 @@
   .how-desc { font-size: 0.82rem; color: #66645d; line-height: 1.6; }
 
   @media (max-width: 599px) {
-    .service-item, .how-step { padding: 1.4rem 1.25rem; border-right: none; border-bottom: 1px solid var(--border); }
-    .service-item:last-child, .how-step:last-child { border-bottom: none; }
+    .service-item { padding: 1.4rem 1.25rem; }
+    .how-step { padding: 1.4rem 1.25rem; border-right: none; border-bottom: 1px solid var(--border); }
+    .how-step:last-child { border-bottom: none; }
     .service-num { margin-bottom: 0.4rem; }
     .how-icon { margin-bottom: 0.5rem; }
     section { padding: 3rem 0; }
@@ -242,8 +244,8 @@
     <span data-ru style="display:none">Ваш бизнес работает.<br><em>Даже когда вы отдыхаете.</em></span>
   </h1>
   <p class="hero-desc fade-up">
-    <span data-en>I build systems that take the routine off your team: handling orders, quotes and documents, booking clients, keeping records and sending notifications.</span>
-    <span data-ru style="display:none">Строю системы, которые снимают с команды рутину: разбор заявок, расчёты и документы, запись клиентов, учёт и уведомления.</span>
+    <span data-en>I build systems that take the routine off your team: answering client questions, booking, handling orders and quotes, documents, records and notifications.</span>
+    <span data-ru style="display:none">Строю системы, которые снимают с команды рутину: общение с клиентами и ответы на частые вопросы, запись, разбор заявок и расчёты, документы, учёт и уведомления.</span>
   </p>
   <a href="https://t.me/aleksanderkozyrev" target="_blank" class="hero-cta fade-up">
     <span data-en>Let's talk</span><span data-ru style="display:none">Написать в Telegram</span> <span class="arrow">→</span>
@@ -256,28 +258,55 @@
     <div class="services">
       <a class="service-item fade-up" href="services/order-automation/">
         <span class="service-num">01</span>
-        <p class="service-title" data-en="Order, quote and document automation" data-ru="Автоматизация заказов, расчётов и документов">Order, quote and document automation</p>
+        <p class="service-title" data-en="Orders and quotes" data-ru="Заявки и расчёты">Orders and quotes</p>
         <p class="service-desc">
-          <span data-en>Orders arrive by email in any form: text, files, photos. The system reads them, prices them by your rules and prepares the commercial offer. Contracts and invoices are filled in automatically, a cross-check catches errors and managers get notifications.</span>
-          <span data-ru style="display:none">Заявки приходят на почту в любом формате: текстом, файлами, фото. Система сама разбирает их, считает цену по вашим правилам и готовит коммерческое предложение. Договоры и счета заполняются автоматически, сверка ловит ошибки, а менеджеры получают уведомления.</span>
+          <span data-en>Orders arrive by email in any format. The system reads them, prices them by your rules and prepares the commercial offer.</span>
+          <span data-ru style="display:none">Заявки приходят на почту в любом формате. Система разбирает их, считает цену по вашим правилам и готовит коммерческое предложение.</span>
+        </p>
+        <span class="service-more"><span data-en>Details</span><span data-ru style="display:none">Подробнее</span></span>
+      </a>
+      <a class="service-item fade-up" href="services/order-automation/">
+        <span class="service-num">02</span>
+        <p class="service-title" data-en="Contracts and documents" data-ru="Договоры и документы">Contracts and documents</p>
+        <p class="service-desc">
+          <span data-en>Contracts, estimates and invoices are filled in from the quote, customer cards are loaded from email and a cross-check catches errors.</span>
+          <span data-ru style="display:none">Договоры, сметы и счета заполняются из расчёта, карточки заказчиков загружаются из почты, а сверка находит ошибки.</span>
         </p>
         <span class="service-more"><span data-en>Details</span><span data-ru style="display:none">Подробнее</span></span>
       </a>
       <a class="service-item fade-up" href="services/telegram-bots/">
-        <span class="service-num">02</span>
+        <span class="service-num">03</span>
         <p class="service-title" data-en="Bots in messengers" data-ru="Боты в мессенджерах">Bots in messengers</p>
         <p class="service-desc">
-          <span data-en>A bot answers client questions, books lessons, sends reminders, notifies your staff and takes on whatever else you hand it: collecting data, suggesting replies, accepting requests. In Telegram, Max and other messengers, in any language, around the clock.</span>
-          <span data-ru style="display:none">Бот отвечает на вопросы клиентов, записывает на занятия, напоминает, уведомляет сотрудников и берёт на себя всё остальное, что ему поручено: сбор данных, подсказки ответов, приём заявок. В Telegram, Max и других мессенджерах, на любом языке, круглосуточно.</span>
+          <span data-en>A bot answers common questions, books, reminds and notifies your staff. In Telegram, WhatsApp and other messengers, in any language.</span>
+          <span data-ru style="display:none">Бот отвечает на частые вопросы, записывает, напоминает и уведомляет сотрудников. В Telegram, Max и других мессенджерах, на любом языке.</span>
+        </p>
+        <span class="service-more"><span data-en>Details</span><span data-ru style="display:none">Подробнее</span></span>
+      </a>
+      <a class="service-item fade-up" href="services/order-automation/">
+        <span class="service-num">04</span>
+        <p class="service-title" data-en="Mail and notifications" data-ru="Почта и уведомления">Mail and notifications</p>
+        <p class="service-desc">
+          <span data-en>A bot sorts incoming mail, works out what each email is and notifies managers, for example that an order has been calculated.</span>
+          <span data-ru style="display:none">Бот разбирает входящую почту, определяет, что это за письмо, и присылает менеджерам уведомления, например о том, что заявка посчитана.</span>
         </p>
         <span class="service-more"><span data-en>Details</span><span data-ru style="display:none">Подробнее</span></span>
       </a>
       <a class="service-item fade-up" href="services/internal-systems/">
-        <span class="service-num">03</span>
-        <p class="service-title" data-en="Internal systems and CRM" data-ru="Внутренние системы и CRM">Internal systems and CRM</p>
+        <span class="service-num">05</span>
+        <p class="service-title" data-en="CRM and records" data-ru="CRM и учёт">CRM and records</p>
         <p class="service-desc">
-          <span data-en>Client and staff cards, attendance, payments, payroll, registers and school diaries, contracts and documents, tasks and notifications. One system instead of spreadsheets and chats.</span>
-          <span data-ru style="display:none">Карточки клиентов и сотрудников, посещаемость, оплаты, зарплата, журналы и школьные дневники, договоры и документы, задачи и уведомления. Одна система вместо таблиц и чатов.</span>
+          <span data-en>Deals on a board, client and staff cards, tasks, payments and attendance. One system instead of spreadsheets and chats.</span>
+          <span data-ru style="display:none">Сделки на доске, карточки клиентов и сотрудников, задачи, оплаты и посещаемость. Одна система вместо таблиц и чатов.</span>
+        </p>
+        <span class="service-more"><span data-en>Details</span><span data-ru style="display:none">Подробнее</span></span>
+      </a>
+      <a class="service-item fade-up" href="services/internal-systems/">
+        <span class="service-num">06</span>
+        <p class="service-title" data-en="Systems for schools and children's centers" data-ru="Системы для школ и детских центров">Systems for schools and children's centers</p>
+        <p class="service-desc">
+          <span data-en>An electronic register and school diary, attendance, cards for children and teachers, automatic payroll.</span>
+          <span data-ru style="display:none">Электронный журнал и дневник, посещаемость, карточки детей и учителей, автоматический расчёт зарплаты.</span>
         </p>
         <span class="service-more"><span data-en>Details</span><span data-ru style="display:none">Подробнее</span></span>
       </a>
