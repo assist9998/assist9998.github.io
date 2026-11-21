@@ -47,6 +47,7 @@
     transition: color 0.2s;
   }
   .nav-link:hover { color: var(--accent); }
+  @media (max-width: 760px) { nav { padding: 1rem 1.25rem; gap: 1rem; } .nav-right { gap: 1rem; } .nav-link:not(.keep) { display: none; } }
   .lang-toggle {
     display: flex; gap: 0; border: 1px solid var(--border); overflow: hidden;
     border-radius: 2px;
@@ -199,7 +200,7 @@
     <a href="services/" class="nav-link" data-en="Services" data-ru="Услуги">Services</a>
     <a href="articles/" class="nav-link" data-en="Articles" data-ru="Статьи">Articles</a>
     <a href="demo.html" class="nav-link" data-en="Live demo" data-ru="Демо">Live demo</a>
-    <a href="#contact" class="nav-link" data-en="Get in touch" data-ru="Написать">Get in touch</a>
+    <a href="#contact" class="nav-link keep" data-en="Get in touch" data-ru="Написать">Get in touch</a>
     <div class="lang-toggle">
       <button class="lang-btn active" onclick="setLang('en')">EN</button>
       <button class="lang-btn" onclick="setLang('ru')">RU</button>

@@ -39,6 +39,7 @@
     transition: color 0.2s;
   }
   .nav-link:hover { color: var(--accent); }
+  @media (max-width: 760px) { nav { padding: 1rem 1.25rem; gap: 1rem; } .nav-right { gap: 1rem; } .nav-link:not(.keep) { display: none; } }
   .lang-toggle {
     display: flex; gap: 0; border: 1px solid var(--border); overflow: hidden;
     border-radius: 2px;
@@ -212,4 +213,4 @@
   .tagrow { display:flex; flex-wrap:wrap; gap:.5rem; margin:1rem 0 0; }
   .sub-contact { max-width:900px; margin:1rem auto 0; padding:3rem 2.5rem; border-top:1px solid var(--border); }
   .sub-contact h2 { font-family:'DM Serif Display',serif; font-size:1.8rem; font-weight:400; margin-bottom:1rem; }
-  @media (max-width:760px) { .page-head, .sec, .sub-contact { padding-left:1.25rem; padding-right:1.25rem; } .page-head { padding-top:6.5rem; } .nav-links a.nav-link { display:none; } .nav-links a.nav-link.keep { display:inline; } }
+  @media (max-width:760px) { .page-head, .sec, .sub-contact { padding-left:1.25rem; padding-right:1.25rem; } .page-head { padding-top:6.5rem; } .nav-links a.nav-link { display:none; } .nav-links a.nav-link.keep { display:inline; } nav { gap:1rem; padding-left:1.25rem; padding-right:1.25rem; } .nav-right { gap:1rem; } .nav-logo { flex:0 1 auto; } .btn-row .btn { flex:1 1 auto; text-align:center; } }
