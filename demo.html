@@ -161,6 +161,13 @@
   .inl { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-mid); font-weight: 500; }
   .inl:hover { border-bottom-color: var(--accent); }
   .school { padding-top: 2rem; }
+  .picks { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1.2rem 0 1.1rem; max-width: 520px; }
+  .pick { font: inherit; text-align: left; padding: 0.8rem 1rem; background: #fff; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; color: var(--black); }
+  .pick b { display: block; font-weight: 500; font-size: 0.95rem; }
+  .pick span { display: block; margin-top: 0.15rem; font-size: 0.8rem; color: var(--gray); line-height: 1.35; font-weight: 400; }
+  .pick:hover { border-color: var(--accent-mid); }
+  .pick.active { border-color: var(--accent); background: var(--accent-light); }
+  @media (max-width: 520px) { .picks { grid-template-columns: 1fr; } }
 
   .flow { display: grid; grid-template-columns: minmax(0, 0.85fr) auto minmax(0, 1.5fr); gap: 1.25rem; align-items: start; }
   .flow-arrow { position: sticky; top: 6rem; align-self: start; margin-top: 3rem; }
@@ -230,8 +237,7 @@
 <div class="wrap demo-switch-wrap">
   <div class="demo-switch" id="demoSwitch">
     <button type="button" data-view="orders" id="swOrders"></button>
-    <button type="button" data-view="school" id="swSchool"></button>
-    <button type="button" data-view="kids" id="swKids"></button>
+    <button type="button" data-view="crm" id="swCrm"></button>
     <button type="button" data-view="bot" id="swBot"></button>
   </div>
 </div>
@@ -282,36 +288,20 @@
 </section>
 </div>
 
-<div id="view-school" style="display:none">
+<div id="view-crm" style="display:none">
 <section class="school">
   <div class="wrap">
     <div class="school-grid">
       <div>
-        <h2 id="sH"></h2>
-        <p id="sLead"></p>
-        <ul id="sList"></ul>
-        <p class="small" id="sNote"></p>
+        <h2 id="cH"></h2>
+        <p id="cLead"></p>
+        <div class="picks" id="cPick"></div>
+        <p id="cSub"></p>
+        <ul id="cList"></ul>
+        <p class="small" id="cNote"></p>
       </div>
       <div class="phone-col">
-        <div class="phone-scale"><div class="phone"><iframe id="schoolFrame" title="School system demo" allow="clipboard-write"></iframe></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-</div>
-
-<div id="view-kids" style="display:none">
-<section class="school">
-  <div class="wrap">
-    <div class="school-grid">
-      <div>
-        <h2 id="kH"></h2>
-        <p id="kLead"></p>
-        <ul id="kList"></ul>
-        <p class="small" id="kNote"></p>
-      </div>
-      <div class="phone-col">
-        <div class="phone-scale"><div class="phone"><iframe id="kidsFrame" title="Children's center demo" allow="clipboard-write"></iframe></div></div>
+        <div class="phone-scale"><div class="phone"><iframe id="crmFrame" title="CRM app demo" allow="clipboard-write"></iframe></div></div>
       </div>
     </div>
   </div>
@@ -357,7 +347,7 @@ const I18N = {
     f: { type: 'Type', size: 'Size (order → frame)', leaf: 'Leaves', side: 'Opening side', color: 'Colour', thr: 'Threshold', closer: 'Closer', lock: 'Lock', handle: 'Handle' },
     mgr: 'Items marked "default" were not in the order: the system filled them in from standard settings. Warnings show where a manager must look before the quote goes out.',
     how: { h: 'How the real system works', steps: ['The AI marks the details in your original text instead of retelling it.', 'Code checks that the text was not changed and nothing was lost.', 'Business rules and your price list calculate the price.', 'Anything uncertain is flagged. A manager reviews and sends the quote.'], honest: 'Honest status: this is one system built over about a year and a half, and it is still being refined, because new order formats and edge cases keep appearing. Tenders are calculated together with a manager: a person uploads the files. That is why every project is tailored to the client\'s own orders and rules.' },
-    sw: ['Order to quote', 'School app', 'Kids center app', 'School chatbot'],
+    sw: ['Order to quote', 'CRM apps', 'Chatbot'],
     school: {
       h: 'Try a school system yourself',
       lead: 'This is the kind of system I built for a school and a kindergarten, running here on made-up data. Tap through it like a real user.',
@@ -375,6 +365,11 @@ const I18N = {
       lead: 'A different kind of business: a kindergarten with age groups and clubs. The idea is the same as in the [[school app|school]], but the layout and the screens are its own. Made-up data.',
       list: ['Today: tap a child to mark attendance, the ring shows how many came.', 'Kids: a card for each child with badges for allergies and nap time, parents and the club.', 'Payments: month by month for each group, tap to mark paid.', 'Team: who is on site today, planned days off and a monthly summary.', 'Feed: team announcements with translation between Russian and English.', 'Every business gets its own screens, built around how it actually works.'],
       note: 'Everything is made up. Nothing is saved after a page reload.'
+    },
+    crm: {
+      h: 'One approach, two different businesses',
+      lead: 'Every business works in its own way, so I do not sell a template. I start from how people actually work: a school counts lessons and marks, a children\'s center counts attendance, payments and who is on shift. Here are two systems built like that, on made-up data. Tap through them as a real user.',
+      picks: [['School', 'Lessons, marks, diary, pay for teachers'], ['Children\'s center', 'Groups, clubs, payments, the team']],
     },
     about: {
       h: 'What else the real system does',
@@ -398,7 +393,7 @@ const I18N = {
     f: { type: 'Тип', size: 'Размер (заявка → коробка)', leaf: 'Створок', side: 'Открывание', color: 'Цвет', thr: 'Порог', closer: 'Доводчик', lock: 'Замок', handle: 'Ручка' },
     mgr: 'Поля с пометкой «по умолчанию» не были указаны в заявке: система подставила их из стандартных настроек. Предупреждения показывают, на что менеджеру нужно посмотреть до отправки КП.',
     how: { h: 'Как устроена настоящая система', steps: ['ИИ размечает детали в исходном тексте, а не пересказывает его.', 'Код проверяет, что текст не изменился и ничего не потеряно.', 'Правила бизнеса и ваш прайс считают цену.', 'Всё неясное помечается. Менеджер проверяет и отправляет КП.'], honest: 'Честный статус: это одна система, которую я делаю около полутора лет, и она до сих пор дорабатывается, потому что появляются новые форматы заявок и особые случаи. Тендеры считаются вместе с менеджером: человек загружает файлы. Поэтому каждый проект подгоняется под заявки и правила конкретного клиента.' },
-    sw: ['Заявка в расчёт', 'Школьное приложение', 'Приложение детского центра', 'Школьный чат-бот'],
+    sw: ['Заявка в расчёт', 'CRM-системы', 'Чат-бот'],
     school: {
       h: 'Попробуйте школьную систему сами',
       lead: 'Это система такого же вида, как я сделал для школы и детского сада. Здесь она работает на выдуманных данных. Нажимайте как обычный пользователь.',
@@ -416,6 +411,11 @@ const I18N = {
       lead: 'Другой вид бизнеса: детский сад с возрастными группами и кружками. Идея та же, что в [[школьном приложении|school]], но раскладка и экраны свои. Данные выдуманные.',
       list: ['Сегодня: нажмите на ребёнка, чтобы отметить посещаемость, кольцо показывает, сколько пришло.', 'Дети: карточка на каждого с бейджами аллергий и тихого часа, родители и кружок.', 'Оплаты: по месяцам для каждой группы, нажатие отмечает оплату.', 'Команда: кто сегодня на месте, запланированные отгулы и месячная сводка.', 'Лента: объявления команды с переводом между русским и английским.', 'У каждого бизнеса свои экраны, построенные под то, как он работает на самом деле.'],
       note: 'Все данные выдуманные. После обновления страницы ничего не сохраняется.'
+    },
+    crm: {
+      h: 'Один подход, два разных бизнеса',
+      lead: 'У каждого бизнеса свои порядки, поэтому я не продаю шаблон. Я начинаю с того, как люди работают на самом деле: школа считает уроки и оценки, детскому центру важны посещаемость, оплаты и смены. Вот две системы, собранные именно так, на выдуманных данных. Нажимайте как настоящий пользователь.',
+      picks: [['Школа', 'Уроки, оценки, дневник, зарплата учителей'], ['Детский центр', 'Группы, кружки, оплаты, команда']],
     },
     about: {
       h: 'Что ещё делает настоящая система',
@@ -528,8 +528,8 @@ function render() {
   document.getElementById('out').innerHTML = `<div class="sumbar"><span class="sb-l">${count} ${esc(q.items)}</span><span class="sb-t">${rub(total)}</span></div>` + cards + line + deliv + flags;
 }
 
-const SCH = { shown: '' };
-const FRAMES = { school: ['schoolFrame', 'index.html'], kids: ['kidsFrame', 'kids.html'], bot: ['botFrame', 'bot.html'] };
+const SCH = { shown: '', crm: 'school' };
+const FRAMES = { crm: ['crmFrame', () => (SCH.crm === 'kids' ? 'kids.html' : 'index.html')], bot: ['botFrame', () => 'bot.html'] };
 
 function applyLang(lang) {
   LANG = lang;
@@ -548,21 +548,13 @@ function applyLang(lang) {
   document.getElementById('hSteps').innerHTML = t.how.steps.map((x, i) => `<div class="step"><b>${i + 1}</b>${esc(x)}</div>`).join('');
   document.getElementById('hHonest').textContent = t.how.honest;
   document.getElementById('swOrders').textContent = t.sw[0];
-  document.getElementById('swSchool').textContent = t.sw[1];
-  document.getElementById('swKids').textContent = t.sw[2];
-  document.getElementById('swBot').textContent = t.sw[3];
-  document.getElementById('kH').textContent = t.kids.h;
-  document.getElementById('kLead').innerHTML = rich(t.kids.lead);
-  document.getElementById('kList').innerHTML = t.kids.list.map(x => `<li>${rich(x)}</li>`).join('');
-  document.getElementById('kNote').textContent = t.kids.note;
-  document.getElementById('sH').textContent = t.school.h;
-  document.getElementById('sLead').textContent = t.school.lead;
-  document.getElementById('sList').innerHTML = t.school.list.map(x => `<li>${rich(x)}</li>`).join('');
+  document.getElementById('swCrm').textContent = t.sw[1];
+  document.getElementById('swBot').textContent = t.sw[2];
+  renderCrm();
   document.getElementById('bH').textContent = t.bot.h;
   document.getElementById('bLead').textContent = t.bot.lead;
   document.getElementById('bList').innerHTML = t.bot.list.map(x => `<li>${rich(x)}</li>`).join('');
   document.getElementById('bNote').textContent = t.bot.note;
-  document.getElementById('sNote').textContent = t.school.note;
   updateSchoolFrame();
   document.getElementById('aH').innerHTML = t.about.h;
   document.getElementById('aBody').innerHTML = t.about.body;
@@ -581,13 +573,23 @@ applyLang(start);
 
 
 function rich(x) { return esc(x).replace(/\[\[(.+?)\|(\w+)\]\]/g, '<a class="inl" href="#$2">$1</a>'); }
+function renderCrm() {
+  const t = I18N[LANG], c = t.crm, ex = t[SCH.crm];
+  document.getElementById('cH').textContent = c.h;
+  document.getElementById('cLead').textContent = c.lead;
+  document.getElementById('cPick').innerHTML = ['school', 'kids'].map((k, i) => `<button type="button" class="pick${SCH.crm === k ? ' active' : ''}" data-k="${k}"><b>${esc(c.picks[i][0])}</b><span>${esc(c.picks[i][1])}</span></button>`).join('');
+  document.querySelectorAll('#cPick .pick').forEach(b => b.addEventListener('click', () => { SCH.crm = b.dataset.k; try { history.replaceState(null, '', '#' + SCH.crm); } catch (e) {} renderCrm(); updateSchoolFrame(); }));
+  document.getElementById('cSub').innerHTML = rich(ex.lead);
+  document.getElementById('cList').innerHTML = ex.list.map(x => `<li>${rich(x)}</li>`).join('');
+  document.getElementById('cNote').textContent = ex.note;
+}
 function updateSchoolFrame() {
   Object.keys(FRAMES).forEach(k => {
     if (SCH.shown !== k) return;
-    const key = k + LANG;
+    const key = k + (k === 'crm' ? SCH.crm : '') + LANG;
     if (SCH['last_' + k] === key) return;
     SCH['last_' + k] = key;
-    document.getElementById(FRAMES[k][0]).src = 'https://assist9998.github.io/school-demo/' + FRAMES[k][1] + '?embed=1&v=20261127j&lang=' + LANG;
+    document.getElementById(FRAMES[k][0]).src = 'https://assist9998.github.io/school-demo/' + FRAMES[k][1]() + '?embed=1&v=20261127k&lang=' + LANG;
   });
 }
 
@@ -606,14 +608,19 @@ function fitPhones() {
   });
 }
 window.addEventListener('resize', fitPhones);
-function viewFromHash() { return location.hash === '#school' ? 'school' : location.hash === '#kids' ? 'kids' : location.hash === '#bot' ? 'bot' : 'orders'; }
+function viewFromHash() {
+  const h = location.hash;
+  if (h === '#school' || h === '#kids') { SCH.crm = h.slice(1); return 'crm'; }
+  return h === '#crm' ? 'crm' : h === '#bot' ? 'bot' : 'orders';
+}
 function setView(v, push) {
-  ['orders', 'school', 'kids', 'bot'].forEach(k => { document.getElementById('view-' + k).style.display = k === v ? '' : 'none'; });
+  ['orders', 'crm', 'bot'].forEach(k => { document.getElementById('view-' + k).style.display = k === v ? '' : 'none'; });
   document.querySelectorAll('#demoSwitch button').forEach(b => b.classList.toggle('active', b.dataset.view === v));
   SCH.shown = v;
+  if (v === 'crm') renderCrm();
   updateSchoolFrame();
   fitPhones();
-  if (push) { try { history.replaceState(null, '', v === 'orders' ? location.pathname + location.search : '#' + v); } catch (e) {} }
+  if (push) { try { history.replaceState(null, '', v === 'orders' ? location.pathname + location.search : '#' + (v === 'crm' ? SCH.crm : v)); } catch (e) {} }
 }
 document.querySelectorAll('#demoSwitch button').forEach(b => b.addEventListener('click', () => setView(b.dataset.view, true)));
 setView(viewFromHash(), false);
