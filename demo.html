@@ -231,6 +231,7 @@
   <div class="demo-switch" id="demoSwitch">
     <button type="button" data-view="orders" id="swOrders"></button>
     <button type="button" data-view="school" id="swSchool"></button>
+    <button type="button" data-view="kids" id="swKids"></button>
     <button type="button" data-view="bot" id="swBot"></button>
   </div>
 </div>
@@ -299,6 +300,24 @@
 </section>
 </div>
 
+<div id="view-kids" style="display:none">
+<section class="school">
+  <div class="wrap">
+    <div class="school-grid">
+      <div>
+        <h2 id="kH"></h2>
+        <p id="kLead"></p>
+        <ul id="kList"></ul>
+        <p class="small" id="kNote"></p>
+      </div>
+      <div class="phone-col">
+        <div class="phone-scale"><div class="phone"><iframe id="kidsFrame" title="Children's center demo" allow="clipboard-write"></iframe></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
 <div id="view-bot" style="display:none">
 <section class="school">
   <div class="wrap">
@@ -338,7 +357,7 @@ const I18N = {
     f: { type: 'Type', size: 'Size (order → frame)', leaf: 'Leaves', side: 'Opening side', color: 'Colour', thr: 'Threshold', closer: 'Closer', lock: 'Lock', handle: 'Handle' },
     mgr: 'Items marked "default" were not in the order: the system filled them in from standard settings. Warnings show where a manager must look before the quote goes out.',
     how: { h: 'How the real system works', steps: ['The AI marks the details in your original text instead of retelling it.', 'Code checks that the text was not changed and nothing was lost.', 'Business rules and your price list calculate the price.', 'Anything uncertain is flagged. A manager reviews and sends the quote.'], honest: 'Honest status: this is one system built over about a year and a half, and it is still being refined, because new order formats and edge cases keep appearing. Tenders are calculated together with a manager: a person uploads the files. That is why every project is tailored to the client\'s own orders and rules.' },
-    sw: ['Order to quote', 'School app', 'School chatbot'],
+    sw: ['Order to quote', 'School app', 'Kids center app', 'School chatbot'],
     school: {
       h: 'Try a school system yourself',
       lead: 'This is the kind of system I built for a school and a kindergarten, running here on made-up data. Tap through it like a real user.',
@@ -350,6 +369,12 @@ const I18N = {
       lead: 'The chat parents use to ask questions and sign up. It runs here on made-up data with scripted answers. Tap the buttons or type your own question.',
       list: ['Answers questions about prices and the timetable.', 'Books a trial lesson step by step and offers to sign up once, so nobody gets annoyed.', 'Passes a question to the administrator when it is not sure of the answer.', 'Works together with the [[school app|school]]: the request reaches the administrator there, and parents also get the diary and notifications.'],
       note: 'Everything is made up. A page reload starts the chat from the beginning.'
+    },
+    kids: {
+      h: 'An app for a children\'s center',
+      lead: 'A different kind of business: a kindergarten with age groups and clubs. The idea is the same as in the [[school app|school]], but the layout and the screens are its own. Made-up data.',
+      list: ['Today: tap a child to mark attendance, the ring shows how many came.', 'Kids: a card for each child with badges for allergies and nap time, parents and the club.', 'Payments: month by month for each group, tap to mark paid.', 'Team: who is on site today, planned days off and a monthly summary.', 'Feed: team announcements with translation between Russian and English.', 'Every business gets its own screens, built around how it actually works.'],
+      note: 'Everything is made up. Nothing is saved after a page reload.'
     },
     about: {
       h: 'What else the real system does',
@@ -373,7 +398,7 @@ const I18N = {
     f: { type: 'Тип', size: 'Размер (заявка → коробка)', leaf: 'Створок', side: 'Открывание', color: 'Цвет', thr: 'Порог', closer: 'Доводчик', lock: 'Замок', handle: 'Ручка' },
     mgr: 'Поля с пометкой «по умолчанию» не были указаны в заявке: система подставила их из стандартных настроек. Предупреждения показывают, на что менеджеру нужно посмотреть до отправки КП.',
     how: { h: 'Как устроена настоящая система', steps: ['ИИ размечает детали в исходном тексте, а не пересказывает его.', 'Код проверяет, что текст не изменился и ничего не потеряно.', 'Правила бизнеса и ваш прайс считают цену.', 'Всё неясное помечается. Менеджер проверяет и отправляет КП.'], honest: 'Честный статус: это одна система, которую я делаю около полутора лет, и она до сих пор дорабатывается, потому что появляются новые форматы заявок и особые случаи. Тендеры считаются вместе с менеджером: человек загружает файлы. Поэтому каждый проект подгоняется под заявки и правила конкретного клиента.' },
-    sw: ['Заявка в расчёт', 'Школьное приложение', 'Школьный чат-бот'],
+    sw: ['Заявка в расчёт', 'Школьное приложение', 'Приложение детского центра', 'Школьный чат-бот'],
     school: {
       h: 'Попробуйте школьную систему сами',
       lead: 'Это система такого же вида, как я сделал для школы и детского сада. Здесь она работает на выдуманных данных. Нажимайте как обычный пользователь.',
@@ -385,6 +410,12 @@ const I18N = {
       lead: 'Чат, в котором родители задают вопросы и записываются. Здесь он работает на выдуманных данных, ответы заранее написаны. Нажимайте кнопки или напишите свой вопрос.',
       list: ['Отвечает на вопросы про цены и расписание.', 'Записывает на пробное занятие по шагам и один раз предлагает записаться, чтобы никого не раздражать.', 'Передаёт вопрос администратору, если не уверен в ответе.', 'Работает в связке со [[школьным приложением|school]]: заявка приходит администратору туда, а родители получают ещё и дневник с уведомлениями.'],
       note: 'Все данные выдуманные. После обновления страницы чат начинается заново.'
+    },
+    kids: {
+      h: 'Приложение для детского центра',
+      lead: 'Другой вид бизнеса: детский сад с возрастными группами и кружками. Идея та же, что в [[школьном приложении|school]], но раскладка и экраны свои. Данные выдуманные.',
+      list: ['Сегодня: нажмите на ребёнка, чтобы отметить посещаемость, кольцо показывает, сколько пришло.', 'Дети: карточка на каждого с бейджами аллергий и тихого часа, родители и кружок.', 'Оплаты: по месяцам для каждой группы, нажатие отмечает оплату.', 'Команда: кто сегодня на месте, запланированные отгулы и месячная сводка.', 'Лента: объявления команды с переводом между русским и английским.', 'У каждого бизнеса свои экраны, построенные под то, как он работает на самом деле.'],
+      note: 'Все данные выдуманные. После обновления страницы ничего не сохраняется.'
     },
     about: {
       h: 'Что ещё делает настоящая система',
@@ -498,7 +529,7 @@ function render() {
 }
 
 const SCH = { shown: '' };
-const FRAMES = { school: ['schoolFrame', 'index.html'], bot: ['botFrame', 'bot.html'] };
+const FRAMES = { school: ['schoolFrame', 'index.html'], kids: ['kidsFrame', 'kids.html'], bot: ['botFrame', 'bot.html'] };
 
 function applyLang(lang) {
   LANG = lang;
@@ -518,7 +549,12 @@ function applyLang(lang) {
   document.getElementById('hHonest').textContent = t.how.honest;
   document.getElementById('swOrders').textContent = t.sw[0];
   document.getElementById('swSchool').textContent = t.sw[1];
-  document.getElementById('swBot').textContent = t.sw[2];
+  document.getElementById('swKids').textContent = t.sw[2];
+  document.getElementById('swBot').textContent = t.sw[3];
+  document.getElementById('kH').textContent = t.kids.h;
+  document.getElementById('kLead').innerHTML = rich(t.kids.lead);
+  document.getElementById('kList').innerHTML = t.kids.list.map(x => `<li>${rich(x)}</li>`).join('');
+  document.getElementById('kNote').textContent = t.kids.note;
   document.getElementById('sH').textContent = t.school.h;
   document.getElementById('sLead').textContent = t.school.lead;
   document.getElementById('sList').innerHTML = t.school.list.map(x => `<li>${rich(x)}</li>`).join('');
@@ -551,7 +587,7 @@ function updateSchoolFrame() {
     const key = k + LANG;
     if (SCH['last_' + k] === key) return;
     SCH['last_' + k] = key;
-    document.getElementById(FRAMES[k][0]).src = 'https://assist9998.github.io/school-demo/' + FRAMES[k][1] + '?embed=1&v=20261127h&lang=' + LANG;
+    document.getElementById(FRAMES[k][0]).src = 'https://assist9998.github.io/school-demo/' + FRAMES[k][1] + '?embed=1&v=20261127i&lang=' + LANG;
   });
 }
 
@@ -570,9 +606,9 @@ function fitPhones() {
   });
 }
 window.addEventListener('resize', fitPhones);
-function viewFromHash() { return location.hash === '#school' ? 'school' : location.hash === '#bot' ? 'bot' : 'orders'; }
+function viewFromHash() { return location.hash === '#school' ? 'school' : location.hash === '#kids' ? 'kids' : location.hash === '#bot' ? 'bot' : 'orders'; }
 function setView(v, push) {
-  ['orders', 'school', 'bot'].forEach(k => { document.getElementById('view-' + k).style.display = k === v ? '' : 'none'; });
+  ['orders', 'school', 'kids', 'bot'].forEach(k => { document.getElementById('view-' + k).style.display = k === v ? '' : 'none'; });
   document.querySelectorAll('#demoSwitch button').forEach(b => b.classList.toggle('active', b.dataset.view === v));
   SCH.shown = v;
   updateSchoolFrame();
