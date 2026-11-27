@@ -145,19 +145,18 @@
   .school ul { max-width: 520px; margin: 0.25rem 0 1rem 1.1rem; color: #33322e; font-weight: 400; }
   .school li { margin-bottom: 0.3rem; }
   .school .small { font-size: 0.85rem; color: var(--gray); }
-  .phone { width: 340px; max-width: 100%; height: min(690px, calc(100vh - 130px)); min-height: 560px; margin: 0 auto; border: 10px solid #1c1f29; border-radius: 42px; box-shadow: 0 0 0 2px #2d3140, 0 20px 50px rgba(0,0,0,.28); overflow: hidden; background: #000; }
+  .phone { width: 340px; max-width: 100%; height: min(690px, calc(100vh - 130px)); min-height: 560px; margin: 0 auto; width: 100%; border: 10px solid #1c1f29; border-radius: 42px; box-shadow: 0 0 0 2px #2d3140, 0 20px 50px rgba(0,0,0,.28); overflow: hidden; background: #000; }
   .phone iframe { width: 100%; height: 100%; border: 0; display: block; }
-  .ctl { margin: 0.35rem 0 1.2rem; max-width: 360px; }
-  .ctl-sel { position: relative; }
-  .ctl-sel select { appearance: none; -webkit-appearance: none; width: 100%; font: inherit; font-size: 0.95rem; font-weight: 400; color: var(--black); background: #fff; border: 1px solid var(--border); border-radius: 2px; padding: 0.75rem 2.6rem 0.75rem 1rem; cursor: pointer; }
+  .phone-col { width: 340px; max-width: 100%; margin: 0 auto; }
+  .phone-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.9rem; }
+  .ctl-sel { position: relative; flex: 1; min-width: 0; }
+  .ctl-sel select { appearance: none; -webkit-appearance: none; width: 100%; font: inherit; font-size: 0.88rem; font-weight: 400; color: var(--black); background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: 0.5rem 2.2rem 0.5rem 1rem; cursor: pointer; }
   .ctl-sel select:focus { outline: none; border-color: var(--accent); }
-  .ctl-sel::after { content: ''; position: absolute; right: 1.1rem; top: 50%; width: 7px; height: 7px; border-right: 1.5px solid var(--gray); border-bottom: 1.5px solid var(--gray); transform: translateY(-70%) rotate(45deg); pointer-events: none; }
-  .sw-row { display: flex; gap: 0.9rem; flex-wrap: wrap; align-items: center; }
-  .swatch { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); padding: 0; cursor: pointer; position: relative; transition: transform .15s; }
-  .swatch:hover { transform: scale(1.08); }
-  .swatch.active { box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--accent); }
-  .sw-name { margin-top: 0.7rem; font-size: 0.85rem; color: var(--gray); }
-  .pill-title { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); margin-top: 0.9rem; }
+  .ctl-sel::after { content: ''; position: absolute; right: 1rem; top: 50%; width: 6px; height: 6px; border-right: 1.5px solid var(--gray); border-bottom: 1.5px solid var(--gray); transform: translateY(-70%) rotate(45deg); pointer-events: none; }
+  .sw-row { display: flex; gap: 0.55rem; align-items: center; flex-shrink: 0; }
+  .swatch { width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--border); padding: 0; cursor: pointer; transition: transform .15s; }
+  .swatch:hover { transform: scale(1.1); }
+  .swatch.active { box-shadow: 0 0 0 2px var(--white), 0 0 0 3.5px var(--accent); }
   @media (max-width: 860px) { .school-grid { grid-template-columns: 1fr; } .phone { height: 640px; } }
 
   html, body { overflow-x: hidden; }
@@ -245,11 +244,15 @@
         <h2 id="sH"></h2>
         <p id="sLead"></p>
         <ul id="sList"></ul>
-        <p class="pill-title" id="sRoleT"></p><div class="ctl ctl-sel"><select id="sRoles" aria-label="Role"></select></div>
-        <p class="pill-title" id="sDesignT"></p><div class="ctl"><div class="sw-row" id="sDesigns"></div><p class="sw-name" id="sDesignName"></p></div>
         <p class="small" id="sNote"></p>
       </div>
-      <div class="phone"><iframe id="schoolFrame" title="School system demo" allow="clipboard-write"></iframe></div>
+      <div class="phone-col">
+        <div class="phone-bar">
+          <div class="ctl-sel"><select id="sRoles" aria-label="Role"></select></div>
+          <div class="sw-row" id="sDesigns"></div>
+        </div>
+        <div class="phone"><iframe id="schoolFrame" title="School system demo" allow="clipboard-write"></iframe></div>
+      </div>
     </div>
   </div>
 </section>
@@ -280,8 +283,8 @@ const I18N = {
     school: {
       h: 'Try a school system yourself',
       lead: 'This is the kind of system I built for a school and a kindergarten, running here on made-up data. Tap through it like a real user.',
-      list: ['Pick a role below the text: teacher, deputy head, administrator, director or parent. Each one sees its own screens.', 'Teacher: today\'s lessons, covers, topic, homework, attendance and marks.', 'Administrator and director: children, staff and pay.', 'Parent: a school diary with the schedule, topics, homework and marks.', 'Try different looks with the design buttons. The data stays the same.'],
-      roles: ['Teacher', 'Deputy head', 'Admin', 'Director', 'Parent'], designs: ['Night', 'Light', 'Warm', 'Bright', 'Strict'], roleT: 'Role', designT: 'Design',
+      list: ['Pick a role above the phone: teacher, deputy head, administrator, director or parent. Each one sees its own screens.', 'Teacher: today\'s lessons, covers, topic, homework, attendance and marks.', 'Administrator and director: children, staff and pay.', 'Parent: a school diary with the schedule, topics, homework and marks.', 'Try different looks with the coloured dots. The data stays the same.'],
+      roles: ['Teacher', 'Deputy head', 'Admin', 'Director', 'Parent'], designs: ['Night', 'Light', 'Emerald', 'Strict'], roleT: 'Role', designT: 'Design',
       note: 'Everything is made up. Nothing you change is sent anywhere, and a page reload brings the data back.'
     },
     about: {
@@ -309,8 +312,8 @@ const I18N = {
     school: {
       h: 'Попробуйте школьную систему сами',
       lead: 'Это система такого же вида, как я сделал для школы и детского сада. Здесь она работает на выдуманных данных. Нажимайте как обычный пользователь.',
-      list: ['Выберите роль под текстом: учитель, завуч, администратор, директор или родитель. У каждой свои экраны.', 'Учитель: уроки на сегодня, замены, тема, домашнее задание, посещаемость и оценки.', 'Администратор и директор: дети, сотрудники и зарплата.', 'Родитель: школьный дневник с расписанием, темами, домашними заданиями и оценками.', 'Кнопками «Дизайн» можно сменить внешний вид. Данные остаются те же.'],
-      roles: ['Учитель', 'Завуч', 'Админ', 'Директор', 'Родитель'], designs: ['Ночь', 'Светлая', 'Тёплая', 'Яркая', 'Строгая'], roleT: 'Роль', designT: 'Дизайн',
+      list: ['Выберите роль над телефоном: учитель, завуч, администратор, директор или родитель. У каждой свои экраны.', 'Учитель: уроки на сегодня, замены, тема, домашнее задание, посещаемость и оценки.', 'Администратор и директор: дети, сотрудники и зарплата.', 'Родитель: школьный дневник с расписанием, темами, домашними заданиями и оценками.', 'Цветными кружками можно сменить внешний вид. Данные остаются те же.'],
+      roles: ['Учитель', 'Завуч', 'Админ', 'Директор', 'Родитель'], designs: ['Ночь', 'Светлая', 'Изумруд', 'Строгая'], roleT: 'Роль', designT: 'Дизайн',
       note: 'Все данные выдуманные. Всё, что вы меняете, никуда не отправляется, а после обновления страницы данные возвращаются.'
     },
     about: {
@@ -418,8 +421,8 @@ function render() {
 const SCHOOL_ORIGIN = 'https://assist9998.github.io';
 const SCH = { role: 'teacher', design: 'classic', loaded: false, shown: false, lastSrc: '' };
 const SCH_ROLES = ['teacher', 'zavuch', 'admin', 'director', 'parent'];
-const SCH_DESIGNS = ['classic', 'light', 'warm', 'bright', 'strict'];
-const SCH_COLORS = { classic: ['#0f1117', '#4f8ef7'], light: ['#f4f6fb', '#3b6fe0'], warm: ['#f6f0e8', '#c4613a'], bright: ['#f3efff', '#7c3aed'], strict: ['#ffffff', '#111111'] };
+const SCH_DESIGNS = ['classic', 'light', 'emerald', 'strict'];
+const SCH_COLORS = { classic: ['#0f1117', '#4f8ef7'], light: ['#f4f6fb', '#3b6fe0'], emerald: ['#eef7f3', '#0f9d78'], strict: ['#ffffff', '#111111'] };
 
 function applyLang(lang) {
   LANG = lang;
@@ -443,8 +446,6 @@ function applyLang(lang) {
   document.getElementById('sLead').textContent = t.school.lead;
   document.getElementById('sList').innerHTML = t.school.list.map(x => `<li>${esc(x)}</li>`).join('');
   document.getElementById('sNote').textContent = t.school.note;
-  document.getElementById('sRoleT').textContent = t.school.roleT;
-  document.getElementById('sDesignT').textContent = t.school.designT;
   renderSchoolPills();
   updateSchoolFrame(true);
   document.getElementById('aH').innerHTML = t.about.h;
@@ -472,7 +473,6 @@ function renderSchoolPills() {
     const c = SCH_COLORS[v];
     return `<button type="button" class="swatch${SCH.design === v ? ' active' : ''}" data-v="${v}" aria-label="${esc(t.designs[i])}" title="${esc(t.designs[i])}" style="background:linear-gradient(135deg, ${c[0]} 50%, ${c[1]} 50%)"></button>`;
   }).join('');
-  document.getElementById('sDesignName').textContent = t.designs[SCH_DESIGNS.indexOf(SCH.design)];
   document.querySelectorAll('.swatch').forEach(b => b.addEventListener('click', () => {
     SCH.design = b.dataset.v; renderSchoolPills();
     if (SCH.loaded) { try { document.getElementById('schoolFrame').contentWindow.postMessage({ type: 'demo:design', design: SCH.design }, SCHOOL_ORIGIN); } catch (e) {} }
