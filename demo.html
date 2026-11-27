@@ -101,7 +101,7 @@
   .manager { margin-top: 1rem; font-size: 0.9rem; color: #55534d; }
 
   .tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.25rem; }
-  .tab { font-family: inherit; font-size: 0.85rem; font-weight: 500; padding: 0.6rem 1.2rem; border: 1px solid var(--border); background: #fff; color: var(--gray); cursor: pointer; border-radius: 2px; }
+  .tab { font-family: inherit; font-size: 0.85rem; font-weight: 500; padding: 0.5rem 1.1rem; border: 1px solid var(--border); background: #fff; color: var(--gray); cursor: pointer; border-radius: 999px; }
   .tab.active { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
   .grid2 { display: grid; grid-template-columns: 1fr 1.5fr; gap: 1.5rem; align-items: start; }
   .mail { background: #fff; border: 1px solid var(--border); padding: 1rem 1.1rem; font-size: 0.92rem; font-weight: 400; white-space: pre-wrap; border-radius: 2px; }
@@ -160,6 +160,45 @@
   .inl { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-mid); font-weight: 500; }
   .inl:hover { border-bottom-color: var(--accent); }
   .school { padding-top: 2rem; }
+
+  .flow { display: grid; grid-template-columns: minmax(0, 0.85fr) auto minmax(0, 1.5fr); gap: 1.25rem; align-items: start; }
+  .flow-arrow { position: sticky; top: 6rem; align-self: start; margin-top: 3rem; }
+  .flow-arrow span { display: flex; width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--accent-mid); background: var(--accent-light); color: var(--accent); align-items: center; justify-content: center; font-size: 1.1rem; }
+  .mailcard { background: #fff; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .mc-head { display: flex; align-items: center; gap: 0.75rem; padding: 0.85rem 1rem; border-bottom: 1px solid var(--border); background: var(--mid); }
+  .mc-ava { width: 34px; height: 34px; border-radius: 50%; background: var(--black); color: var(--white); display: flex; align-items: center; justify-content: center; font-weight: 500; flex-shrink: 0; }
+  .mc-head b { display: block; font-size: 0.9rem; font-weight: 500; line-height: 1.3; }
+  .mc-head span { display: block; font-size: 0.8rem; color: var(--gray); }
+  .mc-body { padding: 1.1rem 1.1rem 1.3rem; font-size: 0.97rem; line-height: 1.7; font-weight: 400; white-space: pre-wrap; }
+  .sumbar { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; padding: 0.9rem 1.1rem; background: var(--black); color: var(--white); border-radius: 8px; margin-bottom: 0.8rem; }
+  .sumbar .sb-l { font-size: 0.85rem; opacity: 0.75; }
+  .sumbar .sb-t { font-family: 'DM Serif Display', serif; font-size: 1.5rem; white-space: nowrap; }
+  .qcard { background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 1rem 1.1rem; margin-bottom: 0.8rem; }
+  .qc-top { display: flex; justify-content: space-between; gap: 1rem; align-items: flex-start; }
+  .qc-title { font-weight: 500; font-size: 1rem; line-height: 1.35; }
+  .qc-sub { margin-top: 0.25rem; font-size: 0.86rem; color: #66645d; font-weight: 400; }
+  .qc-qty { font-family: 'DM Serif Display', serif; font-size: 1.25rem; color: var(--accent); white-space: nowrap; }
+  .chips { display: flex; flex-wrap: wrap; gap: 0.35rem; margin: 0.75rem 0 0.7rem; }
+  .chip { font-size: 0.78rem; padding: 0.18rem 0.6rem; border-radius: 999px; background: var(--mid); border: 1px solid var(--border); font-weight: 400; }
+  .chip.def { background: var(--warn-bg); border-color: #f0dca0; color: var(--warn); }
+  .qc-price { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; font-size: 0.88rem; color: #66645d; font-weight: 400; border-top: 1px solid var(--border); padding-top: 0.65rem; }
+  .qc-price b { font-weight: 500; font-size: 1.02rem; color: var(--black); }
+  .qcard details { margin-top: 0.5rem; }
+  .qcard summary { font-size: 0.8rem; color: var(--accent); cursor: pointer; font-weight: 500; list-style: none; }
+  .qcard summary::-webkit-details-marker { display: none; }
+  .qcard summary::after { content: ' ▾'; }
+  .qcard details[open] summary::after { content: ' ▴'; }
+  .qcard .prices { border-top: none; padding: 0.4rem 0 0; }
+  .totalcard { border: 1px solid var(--border); border-radius: 8px; background: #fff; padding: 0.8rem 1.1rem; margin-bottom: 0.8rem; font-size: 0.9rem; font-weight: 400; }
+  .checkcard { background: var(--warn-bg); border: 1px solid #f0dca0; border-radius: 8px; padding: 0.9rem 1.1rem; color: #5c3d00; }
+  .checkcard b { display: block; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .checkcard ul { margin-left: 1.1rem; font-size: 0.88rem; font-weight: 400; }
+  .checkcard li { margin-bottom: 0.25rem; }
+  @media (max-width: 860px) {
+    .flow { grid-template-columns: minmax(0, 1fr); }
+    .flow-arrow { position: static; margin: 0 auto; }
+    .flow-arrow span { transform: rotate(90deg); }
+  }
 </style>
 </head>
 <body>
@@ -206,9 +245,20 @@
 
   <div class="tool">
     <div class="tabs" id="tabs"></div>
-    <div class="grid2">
-      <div><p class="block-title" style="margin-top:0" id="tIn"></p><div class="mail" id="mail"></div></div>
-      <div><p class="block-title" style="margin-top:0" id="tOut"></p><div id="out"></div><p class="manager" id="tMgr"></p></div>
+    <div class="flow">
+      <div class="flow-col">
+        <p class="block-title" style="margin-top:0" id="tIn"></p>
+        <div class="mailcard">
+          <div class="mc-head"><span class="mc-ava">C</span><div><b id="mcFrom"></b><span id="mcSubj"></span></div></div>
+          <div class="mc-body" id="mail"></div>
+        </div>
+      </div>
+      <div class="flow-arrow" aria-hidden="true"><span>→</span></div>
+      <div class="flow-col">
+        <p class="block-title" style="margin-top:0" id="tOut"></p>
+        <div id="out"></div>
+        <p class="manager" id="tMgr"></p>
+      </div>
     </div>
   </div>
 </div>
@@ -283,6 +333,7 @@ const I18N = {
     tOut: 'What the system built',
     pr: { door: 'Door', color: 'Colour surcharge', steel: 'Heavier steel (exterior door)', inst: 'Installation', unit: 'Per door', sum: 'Position total', closers: 'Arm closers', deliv: 'Delivery (default, address not given)', total: 'Total', cur: '₽' },
     pos: 'Position', qty: 'pcs', def: 'default',
+    q: { from: 'Customer', subj: 'Request for a quote', items: 'positions · total', calc: 'How the price is built', check: 'Check before sending' },
     f: { type: 'Type', size: 'Size (order → frame)', leaf: 'Leaves', side: 'Opening side', color: 'Colour', thr: 'Threshold', closer: 'Closer', lock: 'Lock', handle: 'Handle' },
     mgr: 'Items marked "default" were not in the order: the system filled them in from standard settings. Warnings show where a manager must look before the quote goes out.',
     how: { h: 'How the real system works', steps: ['The AI marks the details in your original text instead of retelling it.', 'Code checks that the text was not changed and nothing was lost.', 'Business rules and your price list calculate the price.', 'Anything uncertain is flagged. A manager reviews and sends the quote.'], honest: 'Honest status: this is one system built over about a year and a half, and it is still being refined, because new order formats and edge cases keep appearing. Tenders are calculated together with a manager: a person uploads the files. That is why every project is tailored to the client\'s own orders and rules.' },
@@ -317,6 +368,7 @@ const I18N = {
     tOut: 'Что построила система',
     pr: { door: 'Дверь', color: 'Наценка за цвет', steel: 'Усиленная сталь (наружная дверь)', inst: 'Монтаж', unit: 'За дверь', sum: 'Итого по позиции', closers: 'Доводчики рычажные', deliv: 'Доставка (по умолчанию, адрес не указан)', total: 'Итого', cur: '₽' },
     pos: 'Позиция', qty: 'шт', def: 'по умолчанию',
+    q: { from: 'Заказчик', subj: 'Заявка на расчёт', items: 'позиции · итого', calc: 'Из чего сложилась цена', check: 'Проверить перед отправкой' },
     f: { type: 'Тип', size: 'Размер (заявка → коробка)', leaf: 'Створок', side: 'Открывание', color: 'Цвет', thr: 'Порог', closer: 'Доводчик', lock: 'Замок', handle: 'Ручка' },
     mgr: 'Поля с пометкой «по умолчанию» не были указаны в заявке: система подставила их из стандартных настроек. Предупреждения показывают, на что менеджеру нужно посмотреть до отправки КП.',
     how: { h: 'Как устроена настоящая система', steps: ['ИИ размечает детали в исходном тексте, а не пересказывает его.', 'Код проверяет, что текст не изменился и ничего не потеряно.', 'Правила бизнеса и ваш прайс считают цену.', 'Всё неясное помечается. Менеджер проверяет и отправляет КП.'], honest: 'Честный статус: это одна система, которую я делаю около полутора лет, и она до сих пор дорабатывается, потому что появляются новые форматы заявок и особые случаи. Тендеры считаются вместе с менеджером: человек загружает файлы. Поэтому каждый проект подгоняется под заявки и правила конкретного клиента.' },
@@ -396,7 +448,7 @@ let LANG = 'en', CUR = 0;
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const L = pair => pair[LANG === 'ru' ? 0 : 1];
 
-const rub = n => n.toLocaleString(LANG === 'ru' ? 'ru-RU' : 'en-US') + '\u00A0\u20BD';
+const rub = n => n.toLocaleString(LANG === 'ru' ? 'ru-RU' : 'en-US') + '\u00A0' + (LANG === 'ru' ? 'у.\u00A0е.' : 'c.u.');
 const unit = p => p.pr.door + p.pr.color + p.pr.steel + p.pr.install;
 function priceRows(p, t) {
   const rows = [['door', p.pr.door], ['color', p.pr.color], ['steel', p.pr.steel], ['inst', p.pr.install]]
@@ -405,34 +457,43 @@ function priceRows(p, t) {
 }
 
 function render() {
-  const t = I18N[LANG], ex = EX[CUR];
+  const t = I18N[LANG], ex = EX[CUR], q = t.q;
   document.getElementById('tabs').innerHTML = t.tabs.map((n, i) => `<button class="tab${i === CUR ? ' active' : ''}" data-i="${i}">${esc(n)}</button>`).join('');
   document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => { CUR = +b.dataset.i; render(); }));
   document.getElementById('mail').textContent = ex.text;
+  document.getElementById('mcFrom').textContent = q.from;
+  document.getElementById('mcSubj').textContent = q.subj;
 
-  const d = k => ex => ex.defs.includes(k) ? `<span class="def">${esc(t.def)}</span>` : '';
-  const html = ex.pos.map((p, i) => `
-    <div class="pos">
-      <div class="pos-h"><span>${esc(t.pos)} ${i + 1}: ${esc(L(p.type))}</span><span>${p.qty} ${esc(t.qty)}</span></div>
-      <dl>
-        <dt>${esc(t.f.size)}</dt><dd>${esc(p.order)} → ${esc(p.frame)}</dd>
-        <dt>${esc(t.f.leaf)}</dt><dd>${p.leaves}</dd>
-        <dt>${esc(t.f.side)}</dt><dd>${esc(L(p.side))}${d('side')(p)}</dd>
-        <dt>${esc(t.f.color)}</dt><dd>${esc(p.color)}</dd>
-        <dt>${esc(t.f.thr)}</dt><dd>${esc(p.thr)} ${LANG === 'ru' ? 'мм' : 'mm'}${d('thr')(p)}</dd>
-        <dt>${esc(t.f.closer)}</dt><dd>${esc(L(p.closer))}${d('closer')(p)}</dd>
-        <dt>${esc(t.f.lock)}</dt><dd>${esc(L(p.lock))}${d('lock')(p)}</dd>
-        <dt>${esc(t.f.handle)}</dt><dd>${esc(L(p.handle))}${d('handle')(p)}</dd>
-      </dl>
-      <div class="prices">${priceRows(p, t)}</div>
-    </div>`).join('');
-  const flags = ex.flags.map(f => `<span class="flag">${esc(L(f))}</span>`).join('');
-  const line = ex.line ? `<div class="pos"><div class="pos-h"><span>${esc(t.pr.closers)}</span><span>${ex.line.qty} ${esc(t.qty)}</span></div><div class="prices"><div class="pr"><span>${esc(t.pr.door)}</span><span>${rub(ex.line.price)}</span></div><div class="pr"><span>${esc(t.pr.inst)}</span><span>${rub(ex.line.install)}</span></div><div class="pr sum"><span>${esc(t.pr.sum)}</span><span>${rub((ex.line.price + ex.line.install) * ex.line.qty)}</span></div></div></div>` : '';
   let total = ex.delivery || 0;
   ex.pos.forEach(p => { total += unit(p) * p.qty; });
   if (ex.line) total += (ex.line.price + ex.line.install) * ex.line.qty;
-  const tot = `<div class="pos"><div class="prices" style="border-top:none">${ex.delivery ? `<div class="pr"><span>${esc(t.pr.deliv)}</span><span>${rub(ex.delivery)}</span></div>` : ''}<div class="pr sum total"><span>${esc(t.pr.total)}</span><span>${rub(total)}</span></div></div></div>`;
-  document.getElementById('out').innerHTML = html + line + tot + `<div class="flags">${flags}</div>`;
+  const count = ex.pos.length + (ex.line ? 1 : 0);
+
+  const leavesTxt = n => LANG === 'ru' ? (n === 1 ? '1 створка' : n + ' створки') : (n === 1 ? '1 leaf' : n + ' leaves');
+  const chipOf = (p, k, label, value) => `<span class="chip${p.defs.includes(k) ? ' def' : ''}">${esc(label)}: ${esc(value)}${p.defs.includes(k) ? ' · ' + esc(t.def) : ''}</span>`;
+  const cards = ex.pos.map(p => {
+    const chips = [
+      p.defs.includes('side') ? chipOf(p, 'side', t.f.side, L(p.side)) : '',
+      chipOf(p, 'thr', t.f.thr, p.thr + ' ' + (LANG === 'ru' ? 'мм' : 'mm')),
+      chipOf(p, 'closer', t.f.closer, L(p.closer)),
+      chipOf(p, 'lock', t.f.lock, L(p.lock)),
+      chipOf(p, 'handle', t.f.handle, L(p.handle)),
+    ].join('');
+    const sub = [`${p.order} → ${p.frame}`, leavesTxt(p.leaves), p.defs.includes('side') ? '' : L(p.side), p.color].filter(Boolean).join(' · ');
+    return `<article class="qcard">
+      <div class="qc-top"><div><div class="qc-title">${esc(L(p.type))}</div><div class="qc-sub">${esc(sub)}</div></div><div class="qc-qty">× ${p.qty}</div></div>
+      <div class="chips">${chips}</div>
+      <div class="qc-price"><span>${rub(unit(p))} × ${p.qty}</span><b>${rub(unit(p) * p.qty)}</b></div>
+      <details><summary>${esc(q.calc)}</summary><div class="prices">${priceRows(p, t)}</div></details>
+    </article>`;
+  }).join('');
+  const line = ex.line ? `<article class="qcard">
+      <div class="qc-top"><div><div class="qc-title">${esc(t.pr.closers)}</div></div><div class="qc-qty">× ${ex.line.qty}</div></div>
+      <div class="qc-price"><span>${rub(ex.line.price + ex.line.install)} × ${ex.line.qty}</span><b>${rub((ex.line.price + ex.line.install) * ex.line.qty)}</b></div>
+    </article>` : '';
+  const deliv = ex.delivery ? `<div class="totalcard"><div class="pr"><span>${esc(t.pr.deliv)}</span><span>${rub(ex.delivery)}</span></div></div>` : '';
+  const flags = ex.flags.length ? `<div class="checkcard"><b>${esc(q.check)}</b><ul>${ex.flags.map(f => `<li>${esc(L(f))}</li>`).join('')}</ul></div>` : '';
+  document.getElementById('out').innerHTML = `<div class="sumbar"><span class="sb-l">${count} ${esc(q.items)}</span><span class="sb-t">${rub(total)}</span></div>` + cards + line + deliv + flags;
 }
 
 const SCH = { shown: '' };
