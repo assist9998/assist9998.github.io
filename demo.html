@@ -16,17 +16,47 @@
   }
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Sans', sans-serif; background: var(--white); color: var(--black); font-size: 16px; line-height: 1.6; font-weight: 300; }
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.25rem 2.5rem; display: flex; justify-content: space-between; align-items: center; background: rgba(249,247,244,0.93); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
-  .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--black); text-decoration: none; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.25rem 2.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(249,247,244,0.93);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+  }
+  nav.scrolled { border-bottom-color: var(--border); }
+  .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.1rem; }
   .nav-right { display: flex; align-items: center; gap: 1.5rem; }
-  .nav-link { font-size: 0.82rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray); text-decoration: none; }
+  .nav-link {
+    font-size: 0.82rem; font-weight: 400; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--gray); text-decoration: none;
+    transition: color 0.2s;
+  }
   .nav-link:hover { color: var(--accent); }
-  .lang-toggle { display: flex; border: 1px solid var(--border); overflow: hidden; border-radius: 2px; }
-  .lang-btn { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.65rem; background: none; border: none; cursor: pointer; color: var(--gray); font-family: inherit; }
+  .nav-burger { display: none; align-items: center; justify-content: center; width: 40px; height: 36px; background: none; border: 1px solid var(--border); border-radius: 2px; cursor: pointer; color: var(--black); padding: 0; }
+  .nav-menu { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; background: #f9f7f4; border-bottom: 1px solid var(--border); padding: 0.25rem 1.25rem 0.75rem; box-shadow: 0 8px 16px rgba(0,0,0,0.06); }
+  .nav-menu a { padding: 0.9rem 0; font-size: 0.88rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray); text-decoration: none; border-bottom: 1px solid var(--border); }
+  .nav-menu a:last-child { border-bottom: none; color: var(--accent); }
+  nav.open .nav-menu { display: flex; }
+  @media (max-width: 760px) { nav { padding: 1rem 1.25rem; gap: 1rem; } .nav-right { gap: 1rem; } .nav-link { display: none; } .nav-burger { display: inline-flex; } }
+  @media (min-width: 761px) { .nav-menu, nav.open .nav-menu { display: none; } }
+  .lang-toggle {
+    display: flex; gap: 0; border: 1px solid var(--border); overflow: hidden;
+    border-radius: 2px;
+  }
+  .lang-btn {
+    font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 0.3rem 0.65rem;
+    background: none; border: none; cursor: pointer; color: var(--gray);
+    transition: background 0.15s, color 0.15s;
+  }
   .lang-btn.active { background: var(--accent); color: var(--white); }
 
   .wrap { max-width: 1000px; margin: 0 auto; padding: 0 2.5rem; }
-  header.top { padding: 8rem 0 2rem; }
+  header.top { padding: 2.5rem 0 2rem; }
   .tag { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
   .tag::before { content: ''; width: 28px; height: 1px; background: var(--gray); }
   h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.1; font-weight: 400; letter-spacing: -0.02em; margin-bottom: 1.25rem; max-width: 760px; }
@@ -105,7 +135,6 @@
   @media (max-width: 640px) {
     nav { padding: 1rem 1.25rem; }
     .wrap { padding: 0 1.25rem; }
-    header.top { padding-top: 6.5rem; }
     .nav-link { display: none; }
   }
 
@@ -119,21 +148,50 @@
   .phone { width: 392px; max-width: 100%; height: 760px; margin: 0 auto; border: 11px solid #1c1f29; border-radius: 46px; box-shadow: 0 0 0 2px #2d3140, 0 20px 50px rgba(0,0,0,.28); overflow: hidden; background: #000; }
   .phone iframe { width: 100%; height: 100%; border: 0; display: block; }
   @media (max-width: 860px) { .school-grid { grid-template-columns: 1fr; } .phone { height: 700px; } }
+
+  html, body { overflow-x: hidden; }
+  .demo-switch-wrap { padding-top: 6.5rem; }
+  .demo-switch { display: inline-flex; border: 1px solid var(--border); border-radius: 2px; overflow: hidden; background: #fff; max-width: 100%; }
+  .demo-switch button { font-family: inherit; font-size: 0.85rem; font-weight: 500; padding: 0.7rem 1.3rem; background: none; border: none; color: var(--gray); cursor: pointer; }
+  .demo-switch button + button { border-left: 1px solid var(--border); }
+  .demo-switch button.active { background: var(--accent); color: var(--white); }
+  .school { padding-top: 2rem; }
+  @media (max-width: 640px) { .demo-switch { display: flex; } .demo-switch button { flex: 1; padding: 0.7rem 0.5rem; } }
 </style>
 </head>
 <body>
 
-<nav>
-  <a class="nav-logo" href="./">Alexander Kozyrev</a>
+<nav id="nav">
+  <a class="nav-logo" href="./" style="text-decoration:none;color:inherit">Alexander Kozyrev</a>
   <div class="nav-right">
-    <a href="./" class="nav-link" id="navBack"></a>
+    <a href="cases/" class="nav-link" data-en="Cases" data-ru="Кейсы">Cases</a>
+    <a href="services/" class="nav-link" data-en="Services" data-ru="Услуги">Services</a>
+    <a href="articles/" class="nav-link" data-en="Articles" data-ru="Статьи">Articles</a>
+    <a href="demo.html" class="nav-link" data-en="Live demo" data-ru="Демо">Live demo</a>
+    <a href="https://t.me/aleksanderkozyrev" class="nav-link keep" target="_blank" rel="noopener" data-en="Get in touch" data-ru="Написать">Get in touch</a>
     <div class="lang-toggle">
       <button class="lang-btn" data-lang="en">EN</button>
       <button class="lang-btn" data-lang="ru">RU</button>
     </div>
+    <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false"><svg width="18" height="14" viewBox="0 0 18 14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M1 1h16M1 7h16M1 13h16"/></svg></button>
+  </div>
+  <div class="nav-menu">
+    <a href="cases/" data-en="Cases" data-ru="Кейсы">Cases</a>
+    <a href="services/" data-en="Services" data-ru="Услуги">Services</a>
+    <a href="articles/" data-en="Articles" data-ru="Статьи">Articles</a>
+    <a href="demo.html" data-en="Live demo" data-ru="Демо">Live demo</a>
+    <a href="https://t.me/aleksanderkozyrev" target="_blank" rel="noopener" data-en="Get in touch" data-ru="Написать">Get in touch</a>
   </div>
 </nav>
 
+<div class="wrap demo-switch-wrap">
+  <div class="demo-switch" id="demoSwitch">
+    <button type="button" data-view="orders" id="swOrders"></button>
+    <button type="button" data-view="school" id="swSchool"></button>
+  </div>
+</div>
+
+<div id="view-orders">
 <div class="wrap">
   <header class="top">
     <p class="tag" id="tTag"></p>
@@ -151,20 +209,6 @@
   </div>
 </div>
 
-<section class="school">
-  <div class="wrap">
-    <div class="school-grid">
-      <div>
-        <h2 id="sH"></h2>
-        <p id="sLead"></p>
-        <ul id="sList"></ul>
-        <p class="small" id="sNote"></p>
-      </div>
-      <div class="phone"><iframe src="https://assist9998.github.io/school-demo/" title="School system demo" loading="lazy" allow="clipboard-write"></iframe></div>
-    </div>
-  </div>
-</section>
-
 <section class="how">
   <div class="wrap">
     <h2 id="hH"></h2>
@@ -180,6 +224,24 @@
     <a class="cta" href="https://t.me/aleksanderkozyrev" target="_blank" rel="noopener" id="aCta"></a>
   </div>
 </section>
+</div>
+
+<div id="view-school" style="display:none">
+<section class="school">
+  <div class="wrap">
+    <div class="school-grid">
+      <div>
+        <h2 id="sH"></h2>
+        <p id="sLead"></p>
+        <ul id="sList"></ul>
+        <p class="small" id="sNote"></p>
+      </div>
+      <div class="phone"><iframe src="https://assist9998.github.io/school-demo/" title="School system demo" loading="lazy" allow="clipboard-write"></iframe></div>
+    </div>
+  </div>
+</section>
+</div>
+
 
 <div class="wrap">
   <footer id="tFoot"></footer>
@@ -201,6 +263,7 @@ const I18N = {
     f: { type: 'Type', size: 'Size (order → frame)', leaf: 'Leaves', side: 'Opening side', color: 'Colour', thr: 'Threshold', closer: 'Closer', lock: 'Lock', handle: 'Handle' },
     mgr: 'Items marked "default" were not in the order: the system filled them in from standard settings. Warnings show where a manager must look before the quote goes out.',
     how: { h: 'How the real system works', steps: ['The AI marks the details in your original text instead of retelling it.', 'Code checks that the text was not changed and nothing was lost.', 'Business rules and your price list calculate the price.', 'Anything uncertain is flagged. A manager reviews and sends the quote.'], honest: 'Honest status: this is one system built over about a year and a half, and it is still being refined, because new order formats and edge cases keep appearing. Tenders are calculated together with a manager: a person uploads the files. That is why every project is tailored to the client\'s own orders and rules.' },
+    sw: ['Order to quote', 'School system'],
     school: {
       h: 'Try a school system yourself',
       lead: 'This is the kind of system I built for a school and a kindergarten, running here on made-up data. Tap through it like a real user.',
@@ -228,6 +291,7 @@ const I18N = {
     f: { type: 'Тип', size: 'Размер (заявка → коробка)', leaf: 'Створок', side: 'Открывание', color: 'Цвет', thr: 'Порог', closer: 'Доводчик', lock: 'Замок', handle: 'Ручка' },
     mgr: 'Поля с пометкой «по умолчанию» не были указаны в заявке: система подставила их из стандартных настроек. Предупреждения показывают, на что менеджеру нужно посмотреть до отправки КП.',
     how: { h: 'Как устроена настоящая система', steps: ['ИИ размечает детали в исходном тексте, а не пересказывает его.', 'Код проверяет, что текст не изменился и ничего не потеряно.', 'Правила бизнеса и ваш прайс считают цену.', 'Всё неясное помечается. Менеджер проверяет и отправляет КП.'], honest: 'Честный статус: это одна система, которую я делаю около полутора лет, и она до сих пор дорабатывается, потому что появляются новые форматы заявок и особые случаи. Тендеры считаются вместе с менеджером: человек загружает файлы. Поэтому каждый проект подгоняется под заявки и правила конкретного клиента.' },
+    sw: ['Заявка в расчёт', 'Школьная система'],
     school: {
       h: 'Попробуйте школьную систему сами',
       lead: 'Это система такого же вида, как я сделал для школы и детского сада. Здесь она работает на выдуманных данных. Нажимайте как обычный пользователь.',
@@ -341,7 +405,7 @@ function applyLang(lang) {
   const t = I18N[lang];
   document.documentElement.lang = lang;
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
-  document.getElementById('navBack').textContent = t.back;
+  document.querySelectorAll('nav [data-en]').forEach(e => { e.textContent = e.dataset[lang]; });
   document.getElementById('tTag').textContent = t.tag;
   document.getElementById('tH1').innerHTML = t.h1;
   document.getElementById('tLead').textContent = t.lead;
@@ -352,6 +416,8 @@ function applyLang(lang) {
   document.getElementById('hH').textContent = t.how.h;
   document.getElementById('hSteps').innerHTML = t.how.steps.map((x, i) => `<div class="step"><b>${i + 1}</b>${esc(x)}</div>`).join('');
   document.getElementById('hHonest').textContent = t.how.honest;
+  document.getElementById('swOrders').textContent = t.sw[0];
+  document.getElementById('swSchool').textContent = t.sw[1];
   document.getElementById('sH').textContent = t.school.h;
   document.getElementById('sLead').textContent = t.school.lead;
   document.getElementById('sList').innerHTML = t.school.list.map(x => `<li>${esc(x)}</li>`).join('');
@@ -370,6 +436,24 @@ document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', 
 let start = 'en';
 try { start = localStorage.getItem('lang') || ((navigator.language || '').toLowerCase().startsWith('ru') ? 'ru' : 'en'); } catch (e) {}
 applyLang(start);
+
+function setView(v, push) {
+  if (v !== 'school') v = 'orders';
+  document.getElementById('view-orders').style.display = v === 'orders' ? '' : 'none';
+  document.getElementById('view-school').style.display = v === 'school' ? '' : 'none';
+  document.querySelectorAll('#demoSwitch button').forEach(b => b.classList.toggle('active', b.dataset.view === v));
+  if (push) { try { history.replaceState(null, '', v === 'school' ? '#school' : location.pathname + location.search); } catch (e) {} }
+}
+document.querySelectorAll('#demoSwitch button').forEach(b => b.addEventListener('click', () => setView(b.dataset.view, true)));
+setView(location.hash === '#school' ? 'school' : 'orders', false);
+window.addEventListener('hashchange', () => setView(location.hash === '#school' ? 'school' : 'orders', false));
+(function () {
+  var nav = document.getElementById('nav'), bg = document.getElementById('burger');
+  window.addEventListener('scroll', function () { nav.classList.toggle('scrolled', window.scrollY > 40); });
+  bg.addEventListener('click', function (e) { e.stopPropagation(); var o = nav.classList.toggle('open'); bg.setAttribute('aria-expanded', o ? 'true' : 'false'); });
+  document.addEventListener('click', function (e) { if (!nav.contains(e.target)) nav.classList.remove('open'); });
+  nav.querySelectorAll('.nav-menu a').forEach(function (a) { a.addEventListener('click', function () { nav.classList.remove('open'); }); });
+})();
 </script>
 </body>
 </html>
