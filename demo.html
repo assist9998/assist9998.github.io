@@ -147,9 +147,16 @@
   .school .small { font-size: 0.85rem; color: var(--gray); }
   .phone { width: 340px; max-width: 100%; height: min(690px, calc(100vh - 130px)); min-height: 560px; margin: 0 auto; border: 10px solid #1c1f29; border-radius: 42px; box-shadow: 0 0 0 2px #2d3140, 0 20px 50px rgba(0,0,0,.28); overflow: hidden; background: #000; }
   .phone iframe { width: 100%; height: 100%; border: 0; display: block; }
-  .pills { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.35rem 0 1.1rem; }
-  .pill { font-family: inherit; font-size: 0.82rem; font-weight: 500; padding: 0.45rem 0.95rem; border: 1px solid var(--border); background: #fff; color: var(--gray); cursor: pointer; border-radius: 999px; }
-  .pill.active { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+  .ctl { margin: 0.35rem 0 1.2rem; max-width: 360px; }
+  .ctl-sel { position: relative; }
+  .ctl-sel select { appearance: none; -webkit-appearance: none; width: 100%; font: inherit; font-size: 0.95rem; font-weight: 400; color: var(--black); background: #fff; border: 1px solid var(--border); border-radius: 2px; padding: 0.75rem 2.6rem 0.75rem 1rem; cursor: pointer; }
+  .ctl-sel select:focus { outline: none; border-color: var(--accent); }
+  .ctl-sel::after { content: ''; position: absolute; right: 1.1rem; top: 50%; width: 7px; height: 7px; border-right: 1.5px solid var(--gray); border-bottom: 1.5px solid var(--gray); transform: translateY(-70%) rotate(45deg); pointer-events: none; }
+  .sw-row { display: flex; gap: 0.9rem; flex-wrap: wrap; align-items: center; }
+  .swatch { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); padding: 0; cursor: pointer; position: relative; transition: transform .15s; }
+  .swatch:hover { transform: scale(1.08); }
+  .swatch.active { box-shadow: 0 0 0 2px var(--white), 0 0 0 4px var(--accent); }
+  .sw-name { margin-top: 0.7rem; font-size: 0.85rem; color: var(--gray); }
   .pill-title { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gray); margin-top: 0.9rem; }
   @media (max-width: 860px) { .school-grid { grid-template-columns: 1fr; } .phone { height: 640px; } }
 
@@ -238,8 +245,8 @@
         <h2 id="sH"></h2>
         <p id="sLead"></p>
         <ul id="sList"></ul>
-        <p class="pill-title" id="sRoleT"></p><div class="pills" id="sRoles"></div>
-        <p class="pill-title" id="sDesignT"></p><div class="pills" id="sDesigns"></div>
+        <p class="pill-title" id="sRoleT"></p><div class="ctl ctl-sel"><select id="sRoles" aria-label="Role"></select></div>
+        <p class="pill-title" id="sDesignT"></p><div class="ctl"><div class="sw-row" id="sDesigns"></div><p class="sw-name" id="sDesignName"></p></div>
         <p class="small" id="sNote"></p>
       </div>
       <div class="phone"><iframe id="schoolFrame" title="School system demo" allow="clipboard-write"></iframe></div>
@@ -412,6 +419,7 @@ const SCHOOL_ORIGIN = 'https://assist9998.github.io';
 const SCH = { role: 'teacher', design: 'classic', loaded: false, shown: false, lastSrc: '' };
 const SCH_ROLES = ['teacher', 'zavuch', 'admin', 'director', 'parent'];
 const SCH_DESIGNS = ['classic', 'light', 'warm', 'bright', 'strict'];
+const SCH_COLORS = { classic: ['#0f1117', '#4f8ef7'], light: ['#f4f6fb', '#3b6fe0'], warm: ['#f6f0e8', '#c4613a'], bright: ['#f3efff', '#7c3aed'], strict: ['#ffffff', '#111111'] };
 
 function applyLang(lang) {
   LANG = lang;
@@ -457,12 +465,17 @@ applyLang(start);
 
 function renderSchoolPills() {
   const t = I18N[LANG].school;
-  const mk = (arr, labels, key) => arr.map((v, i) => `<button type="button" class="pill${SCH[key] === v ? ' active' : ''}" data-k="${key}" data-v="${v}">${esc(labels[i])}</button>`).join('');
-  document.getElementById('sRoles').innerHTML = mk(SCH_ROLES, t.roles, 'role');
-  document.getElementById('sDesigns').innerHTML = mk(SCH_DESIGNS, t.designs, 'design');
-  document.querySelectorAll('.pill').forEach(b => b.addEventListener('click', () => {
-    const k = b.dataset.k; SCH[k] = b.dataset.v; renderSchoolPills();
-    if (k === 'design' && SCH.loaded) { try { document.getElementById('schoolFrame').contentWindow.postMessage({ type: 'demo:design', design: SCH.design }, SCHOOL_ORIGIN); } catch (e) {} }
+  const sel = document.getElementById('sRoles');
+  sel.innerHTML = SCH_ROLES.map((v, i) => `<option value="${v}"${SCH.role === v ? ' selected' : ''}>${esc(t.roles[i])}</option>`).join('');
+  sel.onchange = () => { SCH.role = sel.value; updateSchoolFrame(false); };
+  document.getElementById('sDesigns').innerHTML = SCH_DESIGNS.map((v, i) => {
+    const c = SCH_COLORS[v];
+    return `<button type="button" class="swatch${SCH.design === v ? ' active' : ''}" data-v="${v}" aria-label="${esc(t.designs[i])}" title="${esc(t.designs[i])}" style="background:linear-gradient(135deg, ${c[0]} 50%, ${c[1]} 50%)"></button>`;
+  }).join('');
+  document.getElementById('sDesignName').textContent = t.designs[SCH_DESIGNS.indexOf(SCH.design)];
+  document.querySelectorAll('.swatch').forEach(b => b.addEventListener('click', () => {
+    SCH.design = b.dataset.v; renderSchoolPills();
+    if (SCH.loaded) { try { document.getElementById('schoolFrame').contentWindow.postMessage({ type: 'demo:design', design: SCH.design }, SCHOOL_ORIGIN); } catch (e) {} }
     else updateSchoolFrame(false);
   }));
 }
