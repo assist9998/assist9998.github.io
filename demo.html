@@ -356,8 +356,8 @@ const I18N = {
     how: { h: 'How the real system works', steps: ['The AI marks the details in your original text instead of retelling it.', 'Code checks that the text was not changed and nothing was lost.', 'Business rules and your price list calculate the price.', 'Anything uncertain is flagged. A manager reviews and sends the quote.'], honest: 'Honest status: this is one system built over about a year and a half, and it is still being refined, because new order formats and edge cases keep appearing. Tenders are calculated together with a manager: a person uploads the files. That is why every project is tailored to the client\'s own orders and rules.' },
     sw: ['Order to quote', 'CRM apps', 'Chatbot'],
     school: {
-      lead: 'A school: the day is built around lessons. The teacher fills in a lesson in one sheet, and the parent sees the result in the diary at once.',
-      list: ['Teacher: today\'s lessons with covers, swapped subjects and cancelled lessons. Tap a lesson to add the topic, homework, attendance and marks.', 'Classes and a gradebook with averages for every pupil.', 'Pay: lessons are counted automatically from the register, no manual reports.', 'Parent: switch the role at the top of the phone to see the diary. A topic the teacher has just saved shows up there.', 'The app works together with a [[chatbot|bot]] for parents. In the chat they ask about prices and the timetable and book a trial lesson, and the request reaches the administrator in the app.'],
+      lead: 'A school: the day is built around lessons. The teacher fills in a lesson in one place, and the administrator and the parent see the result.',
+      list: ['Two buttons at the top of the phone: the left one changes the look, the right one the role (teacher, deputy head, administrator, director or parent). Each role sees its own screens.', 'Teacher: today\'s lessons, covers, topic, homework, attendance and marks.', 'Administrator and director: children, staff and pay.', 'Parent: a school diary with the schedule, topics, homework and marks.', 'The app works together with a [[chatbot|bot]] for parents. In the chat they ask about prices and the timetable and book a trial lesson, and the request reaches the administrator in the app.'],
       note: 'Everything is made up. Nothing is saved after a page reload.'
     },
     bot: {
@@ -401,8 +401,8 @@ const I18N = {
     how: { h: 'Как устроена настоящая система', steps: ['ИИ размечает детали в исходном тексте, а не пересказывает его.', 'Код проверяет, что текст не изменился и ничего не потеряно.', 'Правила бизнеса и ваш прайс считают цену.', 'Всё неясное помечается. Менеджер проверяет и отправляет КП.'], honest: 'Честный статус: это одна система, которую я делаю около полутора лет, и она до сих пор дорабатывается, потому что появляются новые форматы заявок и особые случаи. Тендеры считаются вместе с менеджером: человек загружает файлы. Поэтому каждый проект подгоняется под заявки и правила конкретного клиента.' },
     sw: ['Заявка в расчёт', 'CRM-системы', 'Чат-бот'],
     school: {
-      lead: 'Школа: весь день выстроен вокруг уроков. Учитель заполняет урок в одном листе, а родитель сразу видит результат в дневнике.',
-      list: ['Учитель: уроки на сегодня с заменами, подменой предмета и отменёнными. Нажмите на урок, чтобы внести тему, домашку, посещаемость и оценки.', 'Классы и журнал оценок со средним баллом по каждому ученику.', 'Зарплата: уроки считаются автоматически по журналу, без ручных отчётов.', 'Родитель: переключите роль вверху телефона, чтобы увидеть дневник. Тема, которую учитель только что сохранил, появляется там.', 'Приложение работает в связке с [[чат-ботом|bot]] для родителей. В чате они спрашивают про цены и расписание и записываются на пробное занятие, а заявка приходит администратору в приложение.'],
+      lead: 'Школа: весь день выстроен вокруг уроков. Учитель заполняет урок в одном месте, а администратор и родитель видят результат.',
+      list: ['Две кнопки вверху телефона: левая меняет внешний вид, правая роль (учитель, завуч, администратор, директор или родитель). У каждой роли свои экраны.', 'Учитель: уроки на сегодня, замены, тема, домашнее задание, посещаемость и оценки.', 'Администратор и директор: дети, сотрудники и зарплата.', 'Родитель: школьный дневник с расписанием, темами, домашними заданиями и оценками.', 'Приложение работает в связке с [[чат-ботом|bot]] для родителей. В чате они спрашивают про цены и расписание и записываются на пробное занятие, а заявка приходит администратору в приложение.'],
       note: 'Все данные выдуманные. После обновления страницы ничего не сохраняется.'
     },
     bot: {
@@ -535,7 +535,7 @@ function render() {
 
 const SCH = { shown: '', crm: 'school' };
 const CRM_ORDER = ['school', 'kids'];
-const FRAMES = { crm: ['crmFrame', () => (SCH.crm === 'kids' ? 'kids.html' : 'school.html')], bot: ['botFrame', () => 'bot.html'] };
+const FRAMES = { crm: ['crmFrame', () => (SCH.crm === 'kids' ? 'kids.html' : 'index.html')], bot: ['botFrame', () => 'bot.html'] };
 
 function applyLang(lang) {
   LANG = lang;
@@ -611,7 +611,7 @@ function updateSchoolFrame() {
     const key = k + (k === 'crm' ? SCH.crm : '') + LANG;
     if (SCH['last_' + k] === key) return;
     SCH['last_' + k] = key;
-    document.getElementById(FRAMES[k][0]).src = 'https://assist9998.github.io/school-demo/' + FRAMES[k][1]() + '?embed=1&v=20261127n&lang=' + LANG;
+    document.getElementById(FRAMES[k][0]).src = 'https://assist9998.github.io/school-demo/' + FRAMES[k][1]() + '?embed=1&v=20261127o&lang=' + LANG;
   });
 }
 
