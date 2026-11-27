@@ -161,13 +161,18 @@
   .inl { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-mid); font-weight: 500; }
   .inl:hover { border-bottom-color: var(--accent); }
   .school { padding-top: 2rem; }
-  .picks { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1.2rem 0 1.1rem; max-width: 520px; }
-  .pick { font: inherit; text-align: left; padding: 0.8rem 1rem; background: #fff; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; color: var(--black); }
-  .pick b { display: block; font-weight: 500; font-size: 0.95rem; }
-  .pick span { display: block; margin-top: 0.15rem; font-size: 0.8rem; color: var(--gray); line-height: 1.35; font-weight: 400; }
-  .pick:hover { border-color: var(--accent-mid); }
-  .pick.active { border-color: var(--accent); background: var(--accent-light); }
-  @media (max-width: 520px) { .picks { grid-template-columns: 1fr; } }
+  .crm-grid { grid-template-columns: 1fr 380px; grid-template-areas: "head phone" "body phone"; align-items: start; }
+  .crm-head { grid-area: head; } .crm-body { grid-area: body; } .crm-phone { grid-area: phone; }
+  .flip { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.9rem; touch-action: pan-y; user-select: none; }
+  .fl-b { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--border); background: #fff; color: var(--black); font-size: 1.15rem; line-height: 1; cursor: pointer; flex-shrink: 0; }
+  .fl-b:active { background: var(--accent-light); border-color: var(--accent-mid); }
+  .fl-t { flex: 1; min-width: 0; text-align: center; }
+  .fl-t b { display: block; font-family: 'DM Serif Display', serif; font-size: 1.2rem; font-weight: 400; line-height: 1.2; }
+  .fl-t span { display: block; font-size: 0.76rem; color: var(--gray); margin-top: 0.1rem; }
+  .fl-dots { display: flex; justify-content: center; gap: 0.35rem; margin-top: 0.4rem; }
+  .fl-dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: all .2s; }
+  .fl-dots i.on { width: 18px; border-radius: 3px; background: var(--accent); }
+  @media (max-width: 860px) { .crm-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "head" "phone" "body"; gap: 1.2rem; } }
 
   .flow { display: grid; grid-template-columns: minmax(0, 0.85fr) auto minmax(0, 1.5fr); gap: 1.25rem; align-items: start; }
   .flow-arrow { position: sticky; top: 6rem; align-self: start; margin-top: 3rem; }
@@ -291,17 +296,19 @@
 <div id="view-crm" style="display:none">
 <section class="school">
   <div class="wrap">
-    <div class="school-grid">
-      <div>
+    <div class="school-grid crm-grid">
+      <div class="crm-head">
         <h2 id="cH"></h2>
         <p id="cLead"></p>
-        <div class="picks" id="cPick"></div>
+      </div>
+      <div class="phone-col crm-phone">
+        <div class="flip" id="cPick"></div>
+        <div class="phone-scale"><div class="phone"><iframe id="crmFrame" title="CRM app demo" allow="clipboard-write"></iframe></div></div>
+      </div>
+      <div class="crm-body">
         <p id="cSub"></p>
         <ul id="cList"></ul>
         <p class="small" id="cNote"></p>
-      </div>
-      <div class="phone-col">
-        <div class="phone-scale"><div class="phone"><iframe id="crmFrame" title="CRM app demo" allow="clipboard-write"></iframe></div></div>
       </div>
     </div>
   </div>
@@ -527,6 +534,7 @@ function render() {
 }
 
 const SCH = { shown: '', crm: 'school' };
+const CRM_ORDER = ['school', 'kids'];
 const FRAMES = { crm: ['crmFrame', () => (SCH.crm === 'kids' ? 'kids.html' : 'school.html')], bot: ['botFrame', () => 'bot.html'] };
 
 function applyLang(lang) {
@@ -572,22 +580,38 @@ applyLang(start);
 
 function rich(x) { return esc(x).replace(/\[\[(.+?)\|(\w+)\]\]/g, '<a class="inl" href="#$2">$1</a>'); }
 function renderCrm() {
-  const t = I18N[LANG], c = t.crm, ex = t[SCH.crm];
+  const t = I18N[LANG], c = t.crm, ex = t[SCH.crm], i = CRM_ORDER.indexOf(SCH.crm);
   document.getElementById('cH').textContent = c.h;
   document.getElementById('cLead').textContent = c.lead;
-  document.getElementById('cPick').innerHTML = ['school', 'kids'].map((k, i) => `<button type="button" class="pick${SCH.crm === k ? ' active' : ''}" data-k="${k}"><b>${esc(c.picks[i][0])}</b><span>${esc(c.picks[i][1])}</span></button>`).join('');
-  document.querySelectorAll('#cPick .pick').forEach(b => b.addEventListener('click', () => { SCH.crm = b.dataset.k; try { history.replaceState(null, '', '#' + SCH.crm); } catch (e) {} renderCrm(); updateSchoolFrame(); }));
+  document.getElementById('cPick').innerHTML = `<button type="button" class="fl-b" data-d="-1" aria-label="Previous">‹</button><div class="fl-t"><b>${esc(c.picks[i][0])}</b><span>${esc(c.picks[i][1])}</span><div class="fl-dots">${CRM_ORDER.map((k, j) => `<i class="${j === i ? 'on' : ''}"></i>`).join('')}</div></div><button type="button" class="fl-b" data-d="1" aria-label="Next">›</button>`;
+  document.querySelectorAll('#cPick .fl-b').forEach(b => b.addEventListener('click', () => flipCrm(+b.dataset.d)));
   document.getElementById('cSub').innerHTML = rich(ex.lead);
   document.getElementById('cList').innerHTML = ex.list.map(x => `<li>${rich(x)}</li>`).join('');
   document.getElementById('cNote').textContent = ex.note;
 }
+function flipCrm(d) {
+  const i = (CRM_ORDER.indexOf(SCH.crm) + d + CRM_ORDER.length) % CRM_ORDER.length;
+  const box = document.querySelector('#view-crm .phone-scale');
+  const go = () => {
+    SCH.crm = CRM_ORDER[i];
+    try { history.replaceState(null, '', '#' + SCH.crm); } catch (e) {}
+    renderCrm(); updateSchoolFrame();
+    if (box.animate) box.animate([{ opacity: 0, transform: 'translateX(' + (d * 36) + 'px)' }, { opacity: 1, transform: 'none' }], { duration: 220, easing: 'ease-out' });
+  };
+  if (box.animate) box.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'translateX(' + (-d * 36) + 'px)' }], { duration: 140, easing: 'ease-in' }).onfinish = go; else go();
+}
+(function () {
+  let x0 = null;
+  document.addEventListener('touchstart', e => { const f = e.target.closest && e.target.closest('#cPick'); x0 = f ? e.touches[0].clientX : null; }, { passive: true });
+  document.addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 40) flipCrm(dx < 0 ? 1 : -1); }, { passive: true });
+})();
 function updateSchoolFrame() {
   Object.keys(FRAMES).forEach(k => {
     if (SCH.shown !== k) return;
     const key = k + (k === 'crm' ? SCH.crm : '') + LANG;
     if (SCH['last_' + k] === key) return;
     SCH['last_' + k] = key;
-    document.getElementById(FRAMES[k][0]).src = 'https://assist9998.github.io/school-demo/' + FRAMES[k][1]() + '?embed=1&v=20261127m&lang=' + LANG;
+    document.getElementById(FRAMES[k][0]).src = 'https://assist9998.github.io/school-demo/' + FRAMES[k][1]() + '?embed=1&v=20261127n&lang=' + LANG;
   });
 }
 
