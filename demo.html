@@ -148,15 +148,6 @@
   .phone { width: 340px; max-width: 100%; height: min(690px, calc(100vh - 130px)); min-height: 560px; margin: 0 auto; width: 100%; border: 10px solid #1c1f29; border-radius: 42px; box-shadow: 0 0 0 2px #2d3140, 0 20px 50px rgba(0,0,0,.28); overflow: hidden; background: #000; }
   .phone iframe { width: 100%; height: 100%; border: 0; display: block; }
   .phone-col { width: 340px; max-width: 100%; margin: 0 auto; }
-  .phone-bar { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.9rem; }
-  .ctl-sel { position: relative; flex: 1; min-width: 0; }
-  .ctl-sel select { appearance: none; -webkit-appearance: none; width: 100%; font: inherit; font-size: 0.88rem; font-weight: 400; color: var(--black); background: #fff; border: 1px solid var(--border); border-radius: 999px; padding: 0.5rem 2.2rem 0.5rem 1rem; cursor: pointer; }
-  .ctl-sel select:focus { outline: none; border-color: var(--accent); }
-  .ctl-sel::after { content: ''; position: absolute; right: 1rem; top: 50%; width: 6px; height: 6px; border-right: 1.5px solid var(--gray); border-bottom: 1.5px solid var(--gray); transform: translateY(-70%) rotate(45deg); pointer-events: none; }
-  .sw-row { display: flex; gap: 0.55rem; align-items: center; flex-shrink: 0; }
-  .swatch { width: 26px; height: 26px; border-radius: 50%; border: 1px solid var(--border); padding: 0; cursor: pointer; transition: transform .15s; }
-  .swatch:hover { transform: scale(1.1); }
-  .swatch.active { box-shadow: 0 0 0 2px var(--white), 0 0 0 3.5px var(--accent); }
   @media (max-width: 860px) { .school-grid { grid-template-columns: 1fr; } .phone { height: 640px; } }
 
   html, body { overflow-x: hidden; }
@@ -247,10 +238,6 @@
         <p class="small" id="sNote"></p>
       </div>
       <div class="phone-col">
-        <div class="phone-bar">
-          <div class="ctl-sel"><select id="sRoles" aria-label="Role"></select></div>
-          <div class="sw-row" id="sDesigns"></div>
-        </div>
         <div class="phone"><iframe id="schoolFrame" title="School system demo" allow="clipboard-write"></iframe></div>
       </div>
     </div>
@@ -283,8 +270,7 @@ const I18N = {
     school: {
       h: 'Try a school system yourself',
       lead: 'This is the kind of system I built for a school and a kindergarten, running here on made-up data. Tap through it like a real user.',
-      list: ['Pick a role above the phone: teacher, deputy head, administrator, director or parent. Each one sees its own screens.', 'Teacher: today\'s lessons, covers, topic, homework, attendance and marks.', 'Administrator and director: children, staff and pay.', 'Parent: a school diary with the schedule, topics, homework and marks.', 'Try different looks with the coloured dots. The data stays the same.'],
-      roles: ['Teacher', 'Deputy head', 'Admin', 'Director', 'Parent'], designs: ['Night', 'Light', 'Emerald', 'Strict'], roleT: 'Role', designT: 'Design',
+      list: ['Tap the Demo label at the top of the phone to pick a role: teacher, deputy head, administrator, director or parent. Each one sees its own screens.', 'Teacher: today\'s lessons, covers, topic, homework, attendance and marks.', 'Administrator and director: children, staff and pay.', 'Parent: a school diary with the schedule, topics, homework and marks.', 'The same panel has coloured dots to change the look. The data stays the same.'],
       note: 'Everything is made up. Nothing you change is sent anywhere, and a page reload brings the data back.'
     },
     about: {
@@ -312,8 +298,7 @@ const I18N = {
     school: {
       h: 'Попробуйте школьную систему сами',
       lead: 'Это система такого же вида, как я сделал для школы и детского сада. Здесь она работает на выдуманных данных. Нажимайте как обычный пользователь.',
-      list: ['Выберите роль над телефоном: учитель, завуч, администратор, директор или родитель. У каждой свои экраны.', 'Учитель: уроки на сегодня, замены, тема, домашнее задание, посещаемость и оценки.', 'Администратор и директор: дети, сотрудники и зарплата.', 'Родитель: школьный дневник с расписанием, темами, домашними заданиями и оценками.', 'Цветными кружками можно сменить внешний вид. Данные остаются те же.'],
-      roles: ['Учитель', 'Завуч', 'Админ', 'Директор', 'Родитель'], designs: ['Ночь', 'Светлая', 'Изумруд', 'Строгая'], roleT: 'Роль', designT: 'Дизайн',
+      list: ['Нажмите «Демо» вверху телефона и выберите роль: учитель, завуч, администратор, директор или родитель. У каждой свои экраны.', 'Учитель: уроки на сегодня, замены, тема, домашнее задание, посещаемость и оценки.', 'Администратор и директор: дети, сотрудники и зарплата.', 'Родитель: школьный дневник с расписанием, темами, домашними заданиями и оценками.', 'В той же панели цветные кружки меняют внешний вид. Данные остаются те же.'],
       note: 'Все данные выдуманные. Всё, что вы меняете, никуда не отправляется, а после обновления страницы данные возвращаются.'
     },
     about: {
@@ -418,11 +403,7 @@ function render() {
   document.getElementById('out').innerHTML = html + line + tot + `<div class="flags">${flags}</div>`;
 }
 
-const SCHOOL_ORIGIN = 'https://assist9998.github.io';
-const SCH = { role: 'teacher', design: 'classic', loaded: false, shown: false, lastSrc: '' };
-const SCH_ROLES = ['teacher', 'zavuch', 'admin', 'director', 'parent'];
-const SCH_DESIGNS = ['classic', 'light', 'emerald', 'strict'];
-const SCH_COLORS = { classic: ['#0f1117', '#4f8ef7'], light: ['#f4f6fb', '#3b6fe0'], emerald: ['#eef7f3', '#0f9d78'], strict: ['#ffffff', '#111111'] };
+const SCH = { shown: false, lastLang: '' };
 
 function applyLang(lang) {
   LANG = lang;
@@ -446,8 +427,7 @@ function applyLang(lang) {
   document.getElementById('sLead').textContent = t.school.lead;
   document.getElementById('sList').innerHTML = t.school.list.map(x => `<li>${esc(x)}</li>`).join('');
   document.getElementById('sNote').textContent = t.school.note;
-  renderSchoolPills();
-  updateSchoolFrame(true);
+  updateSchoolFrame();
   document.getElementById('aH').innerHTML = t.about.h;
   document.getElementById('aBody').innerHTML = t.about.body;
   document.getElementById('aH').textContent = t.about.h;
@@ -464,30 +444,10 @@ try { start = localStorage.getItem('lang') || ((navigator.language || '').toLowe
 applyLang(start);
 
 
-function renderSchoolPills() {
-  const t = I18N[LANG].school;
-  const sel = document.getElementById('sRoles');
-  sel.innerHTML = SCH_ROLES.map((v, i) => `<option value="${v}"${SCH.role === v ? ' selected' : ''}>${esc(t.roles[i])}</option>`).join('');
-  sel.onchange = () => { SCH.role = sel.value; updateSchoolFrame(false); };
-  document.getElementById('sDesigns').innerHTML = SCH_DESIGNS.map((v, i) => {
-    const c = SCH_COLORS[v];
-    return `<button type="button" class="swatch${SCH.design === v ? ' active' : ''}" data-v="${v}" aria-label="${esc(t.designs[i])}" title="${esc(t.designs[i])}" style="background:linear-gradient(135deg, ${c[0]} 50%, ${c[1]} 50%)"></button>`;
-  }).join('');
-  document.querySelectorAll('.swatch').forEach(b => b.addEventListener('click', () => {
-    SCH.design = b.dataset.v; renderSchoolPills();
-    if (SCH.loaded) { try { document.getElementById('schoolFrame').contentWindow.postMessage({ type: 'demo:design', design: SCH.design }, SCHOOL_ORIGIN); } catch (e) {} }
-    else updateSchoolFrame(false);
-  }));
-}
-function updateSchoolFrame(langChange) {
-  if (!SCH.shown) return;
-  const f = document.getElementById('schoolFrame');
-  const src = SCHOOL_ORIGIN + '/school-demo/' + (SCH.role === 'parent' ? 'parent.html' : 'index.html') + '?embed=1&role=' + SCH.role + '&design=' + SCH.design + '&lang=' + LANG;
-  const base = src.replace(/design=[a-z]+/, '');
-  if (SCH.lastSrc && base === SCH.lastSrc.replace(/design=[a-z]+/, '')) return;
-  SCH.lastSrc = src; SCH.loaded = false;
-  f.onload = () => { SCH.loaded = true; };
-  f.src = src;
+function updateSchoolFrame() {
+  if (!SCH.shown || SCH.lastLang === LANG) return;
+  SCH.lastLang = LANG;
+  document.getElementById('schoolFrame').src = 'https://assist9998.github.io/school-demo/index.html?embed=1&lang=' + LANG;
 }
 
 function setView(v, push) {
@@ -495,7 +455,7 @@ function setView(v, push) {
   document.getElementById('view-orders').style.display = v === 'orders' ? '' : 'none';
   document.getElementById('view-school').style.display = v === 'school' ? '' : 'none';
   document.querySelectorAll('#demoSwitch button').forEach(b => b.classList.toggle('active', b.dataset.view === v));
-  if (v === 'school') { SCH.shown = true; updateSchoolFrame(false); }
+  if (v === 'school') { SCH.shown = true; updateSchoolFrame(); }
   if (push) { try { history.replaceState(null, '', v === 'school' ? '#school' : location.pathname + location.search); } catch (e) {} }
 }
 document.querySelectorAll('#demoSwitch button').forEach(b => b.addEventListener('click', () => setView(b.dataset.view, true)));
