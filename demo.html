@@ -140,15 +140,16 @@
 
   .school { padding: 3.5rem 0 1rem; }
   .school h2 { font-family: 'DM Serif Display', serif; font-size: 1.7rem; font-weight: 400; margin-bottom: 1rem; }
-  .school-grid { display: grid; grid-template-columns: 1fr 360px; gap: 2.5rem; align-items: center; }
+  .school-grid { display: grid; grid-template-columns: 1fr 380px; gap: 2.5rem; align-items: center; }
   .school p { max-width: 520px; margin-bottom: 0.9rem; color: #33322e; font-weight: 400; }
   .school ul { max-width: 520px; margin: 0.25rem 0 1rem 1.1rem; color: #33322e; font-weight: 400; }
   .school li { margin-bottom: 0.3rem; }
   .school .small { font-size: 0.85rem; color: var(--gray); }
-  .phone { width: 340px; max-width: 100%; height: min(690px, calc(100vh - 130px)); min-height: 560px; margin: 0 auto; width: 100%; border: 10px solid #1c1f29; border-radius: 42px; box-shadow: 0 0 0 2px #2d3140, 0 20px 50px rgba(0,0,0,.28); overflow: hidden; background: #000; }
+  .phone-scale { margin: 0 auto; }
+  .phone { width: 380px; height: 760px; border: 10px solid #1c1f29; border-radius: 42px; box-shadow: 0 0 0 2px #2d3140, 0 20px 50px rgba(0,0,0,.28); overflow: hidden; background: #000; transform-origin: top left; }
   .phone iframe { width: 100%; height: 100%; border: 0; display: block; }
-  .phone-col { width: 340px; max-width: 100%; margin: 0 auto; }
-  @media (max-width: 860px) { .school-grid { grid-template-columns: 1fr; } .phone { height: 640px; } }
+  .phone-col { width: 100%; max-width: 380px; margin: 0 auto; }
+  @media (max-width: 860px) { .school-grid { grid-template-columns: 1fr; } }
 
   html, body { overflow-x: hidden; }
   .demo-switch-wrap { padding-top: 6.5rem; }
@@ -291,7 +292,7 @@
         <p class="small" id="sNote"></p>
       </div>
       <div class="phone-col">
-        <div class="phone"><iframe id="schoolFrame" title="School system demo" allow="clipboard-write"></iframe></div>
+        <div class="phone-scale"><div class="phone"><iframe id="schoolFrame" title="School system demo" allow="clipboard-write"></iframe></div></div>
       </div>
     </div>
   </div>
@@ -309,7 +310,7 @@
         <p class="small" id="bNote"></p>
       </div>
       <div class="phone-col">
-        <div class="phone"><iframe id="botFrame" title="School chatbot demo" allow="clipboard-write"></iframe></div>
+        <div class="phone-scale"><div class="phone"><iframe id="botFrame" title="School chatbot demo" allow="clipboard-write"></iframe></div></div>
       </div>
     </div>
   </div>
@@ -554,12 +555,28 @@ function updateSchoolFrame() {
   });
 }
 
+// Телефон рисуется в натуральном размере 380×760 и ужимается под экран: по ширине и по высоте окна, на телефонах ещё чуть меньше.
+function fitPhones() {
+  document.querySelectorAll('.phone-scale').forEach(box => {
+    const col = box.parentElement, phone = box.firstElementChild;
+    const w = col.clientWidth;
+    if (!w) return;
+    let k = Math.min(1, w / 380, (window.innerHeight - 110) / 760);
+    if (window.innerWidth <= 600) k *= 0.88;
+    k = Math.max(0.45, k);
+    phone.style.transform = 'scale(' + k + ')';
+    box.style.width = (380 * k) + 'px';
+    box.style.height = (760 * k) + 'px';
+  });
+}
+window.addEventListener('resize', fitPhones);
 function viewFromHash() { return location.hash === '#school' ? 'school' : location.hash === '#bot' ? 'bot' : 'orders'; }
 function setView(v, push) {
   ['orders', 'school', 'bot'].forEach(k => { document.getElementById('view-' + k).style.display = k === v ? '' : 'none'; });
   document.querySelectorAll('#demoSwitch button').forEach(b => b.classList.toggle('active', b.dataset.view === v));
   SCH.shown = v;
   updateSchoolFrame();
+  fitPhones();
   if (push) { try { history.replaceState(null, '', v === 'orders' ? location.pathname + location.search : '#' + v); } catch (e) {} }
 }
 document.querySelectorAll('#demoSwitch button').forEach(b => b.addEventListener('click', () => setView(b.dataset.view, true)));
