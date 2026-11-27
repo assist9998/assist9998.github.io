@@ -147,21 +147,19 @@
   .school .small { font-size: 0.85rem; color: var(--gray); }
   .phone { width: 340px; max-width: 100%; height: min(690px, calc(100vh - 130px)); min-height: 560px; margin: 0 auto; width: 100%; border: 10px solid #1c1f29; border-radius: 42px; box-shadow: 0 0 0 2px #2d3140, 0 20px 50px rgba(0,0,0,.28); overflow: hidden; background: #000; }
   .phone iframe { width: 100%; height: 100%; border: 0; display: block; }
-  .phone-tabs { display: flex; gap: 0; margin-bottom: 0.8rem; border: 1px solid var(--border); border-radius: 999px; overflow: hidden; background: #fff; }
-  .phone-tabs button { flex: 1; font: inherit; font-size: 0.85rem; font-weight: 500; padding: 0.55rem 0.5rem; border: 0; background: none; color: var(--gray); cursor: pointer; }
-  .phone-tabs button + button { border-left: 1px solid var(--border); }
-  .phone-tabs button.active { background: var(--accent); color: var(--white); }
   .phone-col { width: 340px; max-width: 100%; margin: 0 auto; }
   @media (max-width: 860px) { .school-grid { grid-template-columns: 1fr; } .phone { height: 640px; } }
 
   html, body { overflow-x: hidden; }
   .demo-switch-wrap { padding-top: 6.5rem; }
-  .demo-switch { display: inline-flex; border: 1px solid var(--border); border-radius: 2px; overflow: hidden; background: #fff; max-width: 100%; }
-  .demo-switch button { font-family: inherit; font-size: 0.85rem; font-weight: 500; padding: 0.7rem 1.3rem; background: none; border: none; color: var(--gray); cursor: pointer; }
-  .demo-switch button + button { border-left: 1px solid var(--border); }
-  .demo-switch button.active { background: var(--accent); color: var(--white); }
+  .demo-switch { display: flex; gap: 2rem; border-bottom: 1px solid var(--border); overflow-x: auto; scrollbar-width: none; }
+  .demo-switch::-webkit-scrollbar { display: none; }
+  .demo-switch button { font-family: inherit; font-size: 0.95rem; font-weight: 400; padding: 0.6rem 0 0.8rem; background: none; border: 0; border-bottom: 2px solid transparent; margin-bottom: -1px; color: var(--gray); cursor: pointer; white-space: nowrap; }
+  .demo-switch button:hover { color: var(--black); }
+  .demo-switch button.active { color: var(--black); font-weight: 500; border-bottom-color: var(--accent); }
+  .inl { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-mid); font-weight: 500; }
+  .inl:hover { border-bottom-color: var(--accent); }
   .school { padding-top: 2rem; }
-  @media (max-width: 640px) { .demo-switch { display: flex; } .demo-switch button { flex: 1; padding: 0.7rem 0.5rem; } }
 </style>
 </head>
 <body>
@@ -193,6 +191,7 @@
   <div class="demo-switch" id="demoSwitch">
     <button type="button" data-view="orders" id="swOrders"></button>
     <button type="button" data-view="school" id="swSchool"></button>
+    <button type="button" data-view="bot" id="swBot"></button>
   </div>
 </div>
 
@@ -242,7 +241,6 @@
         <p class="small" id="sNote"></p>
       </div>
       <div class="phone-col">
-        <div class="phone-tabs" id="sTabs"></div>
         <div class="phone"><iframe id="schoolFrame" title="School system demo" allow="clipboard-write"></iframe></div>
       </div>
     </div>
@@ -250,6 +248,23 @@
 </section>
 </div>
 
+<div id="view-bot" style="display:none">
+<section class="school">
+  <div class="wrap">
+    <div class="school-grid">
+      <div>
+        <h2 id="bH"></h2>
+        <p id="bLead"></p>
+        <ul id="bList"></ul>
+        <p class="small" id="bNote"></p>
+      </div>
+      <div class="phone-col">
+        <div class="phone"><iframe id="botFrame" title="School chatbot demo" allow="clipboard-write"></iframe></div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
 
 <div class="wrap">
   <footer id="tFoot"></footer>
@@ -271,13 +286,18 @@ const I18N = {
     f: { type: 'Type', size: 'Size (order → frame)', leaf: 'Leaves', side: 'Opening side', color: 'Colour', thr: 'Threshold', closer: 'Closer', lock: 'Lock', handle: 'Handle' },
     mgr: 'Items marked "default" were not in the order: the system filled them in from standard settings. Warnings show where a manager must look before the quote goes out.',
     how: { h: 'How the real system works', steps: ['The AI marks the details in your original text instead of retelling it.', 'Code checks that the text was not changed and nothing was lost.', 'Business rules and your price list calculate the price.', 'Anything uncertain is flagged. A manager reviews and sends the quote.'], honest: 'Honest status: this is one system built over about a year and a half, and it is still being refined, because new order formats and edge cases keep appearing. Tenders are calculated together with a manager: a person uploads the files. That is why every project is tailored to the client\'s own orders and rules.' },
-    sw: ['Order to quote', 'School system'],
+    sw: ['Order to quote', 'School app', 'School chatbot'],
     school: {
       h: 'Try a school system yourself',
       lead: 'This is the kind of system I built for a school and a kindergarten, running here on made-up data. Tap through it like a real user.',
-      list: ['Tap the Demo label at the top of the phone to pick a role: teacher, deputy head, administrator, director or parent. Each one sees its own screens.', 'Teacher: today\'s lessons, covers, topic, homework, attendance and marks.', 'Administrator and director: children, staff and pay.', 'Parent: a school diary with the schedule, topics, homework and marks.', 'The app works together with a chatbot for parents. Switch to the Chatbot tab: parents ask about prices and the timetable and book a trial lesson in the chat, and the request reaches the administrator in the app.', 'The same panel has coloured dots to change the look. The data stays the same.'],
-      tabs: ['Mobile app', 'Chatbot'],
+      list: ['Tap the Demo label at the top of the phone to pick a role: teacher, deputy head, administrator, director or parent. Each one sees its own screens.', 'Teacher: today\'s lessons, covers, topic, homework, attendance and marks.', 'Administrator and director: children, staff and pay.', 'Parent: a school diary with the schedule, topics, homework and marks.', 'The app works together with a [[chatbot|bot]] for parents. In the chat they ask about prices and the timetable and book a trial lesson, and the request reaches the administrator in the app.', 'The same panel has coloured dots to change the look. The data stays the same.'],
       note: 'Everything is made up. Nothing you change is sent anywhere, and a page reload brings the data back.'
+    },
+    bot: {
+      h: 'A chatbot for parents',
+      lead: 'The chat parents use to ask questions and sign up. It runs here on made-up data with scripted answers. Tap the buttons or type your own question.',
+      list: ['Answers questions about prices and the timetable.', 'Books a trial lesson step by step and offers to sign up once, so nobody gets annoyed.', 'Passes a question to the administrator when it is not sure of the answer.', 'Works together with the [[school app|school]]: the request reaches the administrator there, and parents also get the diary and notifications.'],
+      note: 'Everything is made up. A page reload starts the chat from the beginning.'
     },
     about: {
       h: 'What else the real system does',
@@ -300,13 +320,18 @@ const I18N = {
     f: { type: 'Тип', size: 'Размер (заявка → коробка)', leaf: 'Створок', side: 'Открывание', color: 'Цвет', thr: 'Порог', closer: 'Доводчик', lock: 'Замок', handle: 'Ручка' },
     mgr: 'Поля с пометкой «по умолчанию» не были указаны в заявке: система подставила их из стандартных настроек. Предупреждения показывают, на что менеджеру нужно посмотреть до отправки КП.',
     how: { h: 'Как устроена настоящая система', steps: ['ИИ размечает детали в исходном тексте, а не пересказывает его.', 'Код проверяет, что текст не изменился и ничего не потеряно.', 'Правила бизнеса и ваш прайс считают цену.', 'Всё неясное помечается. Менеджер проверяет и отправляет КП.'], honest: 'Честный статус: это одна система, которую я делаю около полутора лет, и она до сих пор дорабатывается, потому что появляются новые форматы заявок и особые случаи. Тендеры считаются вместе с менеджером: человек загружает файлы. Поэтому каждый проект подгоняется под заявки и правила конкретного клиента.' },
-    sw: ['Заявка в расчёт', 'Школьная система'],
+    sw: ['Заявка в расчёт', 'Школьное приложение', 'Школьный чат-бот'],
     school: {
       h: 'Попробуйте школьную систему сами',
       lead: 'Это система такого же вида, как я сделал для школы и детского сада. Здесь она работает на выдуманных данных. Нажимайте как обычный пользователь.',
-      list: ['Нажмите «Демо» вверху телефона и выберите роль: учитель, завуч, администратор, директор или родитель. У каждой свои экраны.', 'Учитель: уроки на сегодня, замены, тема, домашнее задание, посещаемость и оценки.', 'Администратор и директор: дети, сотрудники и зарплата.', 'Родитель: школьный дневник с расписанием, темами, домашними заданиями и оценками.', 'Приложение работает в связке с чат-ботом для родителей. Переключитесь на вкладку «Чат-бот»: родители спрашивают про цены и расписание и записываются на пробное занятие в чате, а заявка приходит администратору в приложение.', 'В той же панели цветные кружки меняют внешний вид. Данные остаются те же.'],
-      tabs: ['Приложение', 'Чат-бот'],
+      list: ['Нажмите «Демо» вверху телефона и выберите роль: учитель, завуч, администратор, директор или родитель. У каждой свои экраны.', 'Учитель: уроки на сегодня, замены, тема, домашнее задание, посещаемость и оценки.', 'Администратор и директор: дети, сотрудники и зарплата.', 'Родитель: школьный дневник с расписанием, темами, домашними заданиями и оценками.', 'Приложение работает в связке с [[чат-ботом|bot]] для родителей. В чате они спрашивают про цены и расписание и записываются на пробное занятие, а заявка приходит администратору в приложение.', 'В той же панели цветные кружки меняют внешний вид. Данные остаются те же.'],
       note: 'Все данные выдуманные. Всё, что вы меняете, никуда не отправляется, а после обновления страницы данные возвращаются.'
+    },
+    bot: {
+      h: 'Чат-бот для родителей',
+      lead: 'Чат, в котором родители задают вопросы и записываются. Здесь он работает на выдуманных данных, ответы заранее написаны. Нажимайте кнопки или напишите свой вопрос.',
+      list: ['Отвечает на вопросы про цены и расписание.', 'Записывает на пробное занятие по шагам и один раз предлагает записаться, чтобы никого не раздражать.', 'Передаёт вопрос администратору, если не уверен в ответе.', 'Работает в связке со [[школьным приложением|school]]: заявка приходит администратору туда, а родители получают ещё и дневник с уведомлениями.'],
+      note: 'Все данные выдуманные. После обновления страницы чат начинается заново.'
     },
     about: {
       h: 'Что ещё делает настоящая система',
@@ -410,7 +435,8 @@ function render() {
   document.getElementById('out').innerHTML = html + line + tot + `<div class="flags">${flags}</div>`;
 }
 
-const SCH = { shown: false, last: '', tab: 'app' };
+const SCH = { shown: '' };
+const FRAMES = { school: ['schoolFrame', 'index.html'], bot: ['botFrame', 'bot.html'] };
 
 function applyLang(lang) {
   LANG = lang;
@@ -430,11 +456,15 @@ function applyLang(lang) {
   document.getElementById('hHonest').textContent = t.how.honest;
   document.getElementById('swOrders').textContent = t.sw[0];
   document.getElementById('swSchool').textContent = t.sw[1];
+  document.getElementById('swBot').textContent = t.sw[2];
   document.getElementById('sH').textContent = t.school.h;
   document.getElementById('sLead').textContent = t.school.lead;
-  document.getElementById('sList').innerHTML = t.school.list.map(x => `<li>${esc(x)}</li>`).join('');
+  document.getElementById('sList').innerHTML = t.school.list.map(x => `<li>${rich(x)}</li>`).join('');
+  document.getElementById('bH').textContent = t.bot.h;
+  document.getElementById('bLead').textContent = t.bot.lead;
+  document.getElementById('bList').innerHTML = t.bot.list.map(x => `<li>${rich(x)}</li>`).join('');
+  document.getElementById('bNote').textContent = t.bot.note;
   document.getElementById('sNote').textContent = t.school.note;
-  renderSchoolTabs();
   updateSchoolFrame();
   document.getElementById('aH').innerHTML = t.about.h;
   document.getElementById('aBody').innerHTML = t.about.body;
@@ -452,31 +482,28 @@ try { start = localStorage.getItem('lang') || ((navigator.language || '').toLowe
 applyLang(start);
 
 
-function renderSchoolTabs() {
-  const t = I18N[LANG].school.tabs;
-  document.getElementById('sTabs').innerHTML = ['app', 'bot'].map((k, i) => `<button type="button" data-t="${k}" class="${SCH.tab === k ? 'active' : ''}">${esc(t[i])}</button>`).join('');
-  document.querySelectorAll('#sTabs button').forEach(b => b.addEventListener('click', () => { SCH.tab = b.dataset.t; renderSchoolTabs(); updateSchoolFrame(); }));
-}
+function rich(x) { return esc(x).replace(/\[\[(.+?)\|(\w+)\]\]/g, '<a class="inl" href="#$2">$1</a>'); }
 function updateSchoolFrame() {
-  if (!SCH.shown) return;
-  const key = SCH.tab + LANG;
-  if (SCH.last === key) return;
-  SCH.last = key;
-  const page = SCH.tab === 'bot' ? 'bot.html' : 'index.html';
-  document.getElementById('schoolFrame').src = 'https://assist9998.github.io/school-demo/' + page + '?embed=1&v=20261127g&lang=' + LANG;
+  Object.keys(FRAMES).forEach(k => {
+    if (SCH.shown !== k) return;
+    const key = k + LANG;
+    if (SCH['last_' + k] === key) return;
+    SCH['last_' + k] = key;
+    document.getElementById(FRAMES[k][0]).src = 'https://assist9998.github.io/school-demo/' + FRAMES[k][1] + '?embed=1&v=20261127h&lang=' + LANG;
+  });
 }
 
+function viewFromHash() { return location.hash === '#school' ? 'school' : location.hash === '#bot' ? 'bot' : 'orders'; }
 function setView(v, push) {
-  if (v !== 'school') v = 'orders';
-  document.getElementById('view-orders').style.display = v === 'orders' ? '' : 'none';
-  document.getElementById('view-school').style.display = v === 'school' ? '' : 'none';
+  ['orders', 'school', 'bot'].forEach(k => { document.getElementById('view-' + k).style.display = k === v ? '' : 'none'; });
   document.querySelectorAll('#demoSwitch button').forEach(b => b.classList.toggle('active', b.dataset.view === v));
-  if (v === 'school') { SCH.shown = true; updateSchoolFrame(); }
-  if (push) { try { history.replaceState(null, '', v === 'school' ? '#school' : location.pathname + location.search); } catch (e) {} }
+  SCH.shown = v;
+  updateSchoolFrame();
+  if (push) { try { history.replaceState(null, '', v === 'orders' ? location.pathname + location.search : '#' + v); } catch (e) {} }
 }
 document.querySelectorAll('#demoSwitch button').forEach(b => b.addEventListener('click', () => setView(b.dataset.view, true)));
-setView(location.hash === '#school' ? 'school' : 'orders', false);
-window.addEventListener('hashchange', () => setView(location.hash === '#school' ? 'school' : 'orders', false));
+setView(viewFromHash(), false);
+window.addEventListener('hashchange', () => { setView(viewFromHash(), false); window.scrollTo({ top: 0, behavior: 'smooth' }); });
 (function () {
   var nav = document.getElementById('nav'), bg = document.getElementById('burger');
   window.addEventListener('scroll', function () { nav.classList.toggle('scrolled', window.scrollY > 40); });
